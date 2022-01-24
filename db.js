@@ -16,6 +16,8 @@ const User = new Schema({
 
 const Guild = new Schema({
   _id: String,
+  name: String,
+  icon: String,
   config: {
     welcome: {
      channel: String,

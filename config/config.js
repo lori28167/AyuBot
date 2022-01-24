@@ -1,5 +1,5 @@
 module.exports = {
   "token": process.env.token,
-  "guild_id":"709397060079583302",
+  "guild_id":"",
   "client_id": "699016235228201010"
 }

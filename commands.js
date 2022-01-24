@@ -22,26 +22,26 @@ const rest = new REST({ version: '9' }).setToken(token);
 
     try {
 
-        /*await rest.put(
+        await rest.put(
             Routes.applicationCommands(client_id),
             /*
             By default, the slash commands are in Guild mode. 
             To have the global slash commands, just replace
             " Routes.applicationGuildCommands(client_id, guild_id), " by
             " Routes.applicationCommands(client_id) "
-            *
+            **/
             { body: cmds },
-        );*/
-        await rest.put(
+        );
+        /*await rest.put(
             Routes.applicationGuildCommands(client_id, guild_id),
             /*
             By default, the slash commands are in Guild mode. 
             To have the global slash commands, just replace
             " Routes.applicationGuildCommands(client_id, guild_id), " by
             " Routes.applicationCommands(client_id) "
-            */
+            
             { body: cmds },
-        )
+        )*/
         console.log('Slash commands successfully deployed !');
 
     } catch (e) {

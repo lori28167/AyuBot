@@ -14,6 +14,7 @@ client.login(process.env.token);
 
 app.use(function(req, res, next) {
   req.client = client;
+  req.db = db;
   next();
 })
 app.use(express.static("webdash/public"))
@@ -82,7 +83,7 @@ app.use(function(req,res) {
 
 function isAuth(req,res,next) {
  if(req.isAuthenticated()) return next();
- req.session.redirectUrl = req.url;
+ req.session.redirectUrl = req.originalUrl;
  //req.session.redirectTo = req.originalUrl;
  res.redirect("/auth/login");
 }

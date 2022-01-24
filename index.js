@@ -35,6 +35,8 @@ client.on('interactionCreate', async interaction => {
   if (!guild) {
     new client.db.guild({
       _id: interaction.guild.id,
+      name: interaction.guild.name,
+      icon: interaction.guild.icon?interaction.guild.iconURL({size: 4096}):"https://cdn.discordapp.com/embed/avatars/0.png",
       config: {
         welcome: {
           channel: "",

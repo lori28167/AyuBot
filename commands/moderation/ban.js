@@ -33,7 +33,7 @@ module.exports = {
       if (!user.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: `[ERRO] Você não pode usar esse comando apenas ADMINs e usuarios com permissão \`\`BAN_MEMBERS\`\`!`, ephemeral: true });
       if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: `[ERRO] Eu não posso executar esse comando pois não tenho permissão \`\`BAN_MEMBERS\`\`!`, ephemeral: true });
       if (user.id === userid) return message.reply("Não posso te desbanir");
-      if (!member) return interaction.reply("[ERRO] Não consegui achar o usuário, verifique se está tudo correto.", { ephemeral: true });
+      if (!member) return interaction.reply({content: "[ERRO] Não consegui achar o usuário, verifique se está tudo correto.", ephemeral: true });
 
       member.unban().then(user => {
         interaction.reply(`:slight_smile: | ${member.user.username} foi desbanido com sucesso!`);

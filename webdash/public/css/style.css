@@ -49,3 +49,21 @@ body {
   width: 100vw;
   height: 100vh;
 }
+
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 0px;
+  height: 0px;
+  background: transparent;
+  cursor: pointer;
+  display: none;
+}
+
+#slider::-moz-range-thumb {
+  display: none;
+  width: 0px;
+  height: 0px;
+  background:transparent;
+  cursor: pointer;
+}

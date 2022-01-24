@@ -1,29 +1,55 @@
 <!doctype html>
 <html>
- <%-include('../lib/head.ejs', {title: "Ayu - Editing guild", description: ""})%>
+ <%-include('../lib/head.ejs', {title: "Ayu - Editando servidor", description: ""})%>
  <body class="bg-[#181818] cursor-auto">
  <div class="page">
   <%-include('../lib/nav.ejs')%>
   <%user.guilds.forEach(g => {%>
   <%if(g.permissions === 2147483647) {%>
    <%if(req.params.id === g.id) {%>
+   <%req.db.guild
    <%if(cli.guilds.cache.get(g.id)) {%>
     <center>
      <img src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" class="rounded-full" width="200"/>
      <br>
      <p><%=g.name%></p>
      <br>
-     <hr class="p-0.5 bg-gray-200">
-     <div id="home">
-     <div class="p-3">
-     <a href="#/geral" class="block p-6 max-w-sm bg-gray-800 rounded-lg border-gray-700 shadow-md hover:bg-gray-700 transition-all">
-    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Geral</h5>
-    <p class="font-normal text-gray-700 dark:text-gray-400">Configurações gerais do bot   <span class="text-gray-600">(server avatar, server name, visão geral)</span></p>
-    </a>
-</div>
-</div>
-     </center>
+     <hr class="bg-gray-200">
+     <%if(req.query.section === "/geral") {%>
+      <div id="dashboard">
+       <div class="p-3">
+         <label class="block mb-2 text-sm font-medium text-gray-300" for="server_avatar">Icone do servidor <span class="bg-yellow-200 text-yellow-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Em breve</span>
+
+         <input class="block w-full text-sm text-gray-400 bg-gray-700 rounded-lg border-gray-600 cursor-pointer focus:outline-none focus:border-transparent cursor-not-allowed" aria-describedby="server_avatar_help" id="server_avatar" type="file" disabled/>
+        <br>
+        <br>
+        <label class="block mb-2 text-sm font-medium text-gray-300" for="server_name">Nome do servidor <span class="bg-yellow-200 text-yellow-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Em breve</span>
+         <input type="text" id="disabled-input" class="mb-6 bg-gray-700 border border-gray-600 text-gray-500 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value="Disabled input" aria-describedby="server_name_help" id="server_name" disabled/>
+        <br>
+        <br>
+        <label class="block mb-2 text-sm font-medium text-gray-300">Visão geral do servidor</label>
+        <div class="flex justify-between mb-1">
+         <span class="text-base font-medium text-white">Membros</span>
+        <span class="text-sm font-medium text-white "><%=cli.guilds.cache.get(g.id).memberCount%> / 250.000</span>
+                    
+            </div>
+            <div class="w-full bg-gray-700 rounded-full h-2.5">
+              <input type="range" value="<%=cli.guilds.cache.get(g.id).memberCount%>" max="250000" class="bg-blue-600 h-2.5 rounded-full" id="slider" style="width: 100%" disabled></input>
+              </div>
+       </div>
+      </div>
      <%} else {%>
+     <div id="dashboard">
+     <div class="p-3">
+     <a href="?section=/geral#/geral" class="block p-6 max-w-sm bg-gray-800 rounded-lg border-gray-700 shadow-md hover:bg-gray-700 transition-all">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Geral</h5>
+    <p class="font-normal text-gray-500">Configurações gerais do bot <span class="text-gray-600">(server avatar, server name, visão geral... )</span></p>
+    </a>
+    </div>
+    </div>
+    
+     </center>
+     <%}} else {%>
       <center>
        <img src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" class="rounded-full" width="200"/>
      <br>
