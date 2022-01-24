@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+ <%-include('../lib/head.ejs', {title: "Ayu - Editing guild", description: ""})%>
+ <body class="bg-[#181818] cursor-auto">
+ <div class="page">
+  <%-include('../lib/nav.ejs')%>
+  <%user.guilds.forEach(g => {%>
+  <%if(g.permissions === 2147483647) {%>
+   <%if(req.params.id === g.id) {%>
+   <%if(cli.guilds.cache.get(g.id)) {%>
+    <center>
+     <img src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" class="rounded-full" width="200"/>
+     <br>
+     <p><%=g.name%></p>
+     <br>
+     <hr class="p-0.5 bg-gray-200">
+     <div id="home">
+     <div class="p-3">
+     <a href="#/geral" class="block p-6 max-w-sm bg-gray-800 rounded-lg border-gray-700 shadow-md hover:bg-gray-700 transition-all">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Geral</h5>
+    <p class="font-normal text-gray-700 dark:text-gray-400">Configurações gerais do bot   <span class="text-gray-600">(server avatar, server name, visão geral)</span></p>
+    </a>
+</div>
+</div>
+     </center>
+     <%} else {%>
+      <center>
+       <img src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" class="rounded-full" width="200"/>
+     <br>
+     <p><%=g.name%></p>
+     <br>
+     <button onclick="window.location.href='https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=8&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds%20applications.commands&guild_id=<%=g.id%>&disable_guild_select=true';" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Convidar bot</button>
+     <button onclick="window.history.back()" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Ainda estou pensando...</button>
+      </center>
+     <%}%>
+   <%}%>
+  <%}%>
+  <%})%>
+  
+  </div>
+  </body>
+  </html>

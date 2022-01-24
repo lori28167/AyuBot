@@ -1,0 +1,38 @@
+<div class="">
+<nav class="border-gray-200 p-4 sm:p-6 rounded" >
+<div class="container flex flex-wrap justify-between items-center mx-auto">
+<a href="#" class="flex">
+</a>
+<div class="items-center md:order-2">
+<button type="button" class="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+<span class="sr-only">Open user menu</span>
+<img class="w-10 h-10 rounded-full" src="<%=req.user?`https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" alt="user photo">
+</button>
+
+<div class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow transition-all delay-350" id="dropdown">
+<div class="py-3 px-4">
+<span class="block text-sm text-gray-900"><%=req.user?req.user.username:"Usuário"%></span>
+<span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400">#<%=req.user?req.user.discriminator:"0000"%></span>
+</div>
+<ul class="py-1" aria-labelledby="dropdown">
+<%if(req.isAuthenticated()) {%>
+<li>
+<a href="/dashboard" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+</li>
+<li>
+<a href="/dashboard/settings" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+</li>
+<li>
+<a href="/auth/logout" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Log out</a>
+</li>
+<%} else {%>
+<li>
+<a href="/auth/login" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Log in</a>
+</li>
+<%}%>
+</ul>
+</div>
+</div>
+</nav>
+</div>
+<!--<script src="/nav.js"></script>-->

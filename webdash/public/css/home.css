@@ -1,0 +1,23 @@
+#home {
+ height: 100vh;
+ text-align: center;
+ flex-direction: center;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+#avatar {
+  animation-name:avatar;
+  animation-duration: infinite;
+}
+@keyframes avatar {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+transform: translateY(10)
+  }
+  100% {
+    transform: translateY(0)
+  }
+}

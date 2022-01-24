@@ -1,10 +1,14 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-require('./webdash/server')
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const app = require('express')();
 client.commands = new Collection();
 client.db = require('./db.js')
+
+
+require('./webdash/server')
+
 client.once('ready', () => {
   console.log('Connected !')
 });

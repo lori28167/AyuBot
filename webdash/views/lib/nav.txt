@@ -1,0 +1,12 @@
+<div class="dropdown">
+    <img src="<%=req.user ? `https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}` : "https://cdn.discordapp.com/embed/avatars/0.png"%>" class="avatar" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"/>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2" style="transition:0.5s;">
+  <%if(!req.isAuthenticated()) {%>
+    <li><a class="dropdown-item" href="/auth/login" type="button">Login</a></li>
+  <%} else {%>
+    <li><a class="dropdown-item" href="/auth/logout" type="button">Logout</a></li>
+    <li><a class="dropdown-item" type="button">Settings</a></li>
+    <%}%>
+  </ul>
+</div>
+<script src="/script.js"></script>

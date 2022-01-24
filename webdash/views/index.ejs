@@ -1,6 +1,57 @@
 <!doctype html>
 <html>
- <head>
-  <link rel="stylesheet" href="/style.css"/>
- </head>
+ <%-include('./lib/head.ejs', {title: "", description: ""})%>
+ <body class="bg-[#181818] cursor-auto">
+  <%-include('./lib/nav.ejs')%>
+ <div class="page">
+  <div class="bg-[#181818] h-screen" style="filter: drop-shadow(0px 5px 5px #181818);">
+  <div class="grid justify-items-center p-5 h-96">
+    <!-- ... -->
+        <img class="rounded-full" id="avatar" src="https://media.discordapp.net/attachments/910534717445660725/934496495695183872/381e231b632c742d9033e3138ec0eb49-removebg-preview.png" width="200"/>
+     <h3>Olá <%=req.user?req.user.username:"Usuário"%>, Bem vindo ao site oficial da Ayu!</h3>
+     <br>
+     <button onclick="window.location.href='#more'" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Ler mais</button>
+     <br>
+     <button onclick="window.location.href='/dashboard'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Dashboard</button>
+
+    
+   </div>
+   </div>
+   <div id="more" class="bg-[#c026d3] h-screen" style="">
+   <center>
+   <div class="pt-10">
+    <div class="container bg-slate-900 w-80 h-32 text-center items-center p-2 rounded-lg" style="filter: drop-shadow(0px 0px 5px #181818);">
+     <i class="fa-solid fa-face-laugh-beam fa-2xl"></i>
+     <p>Diversão</p>
+     <p class="break-normal">Procurando um bot para animar seu servidor? Aqui estou eu!</p>
+    </div>
+    </div>
+    <div class="pt-10">
+    <div class="container bg-slate-900 w-80 h-32 text-center items-center p-2 rounded-lg" style="filter: drop-shadow(0px 0px 5px #181818);">
+     <i class="fas fa-shield-alt fa-2xl"></i>
+     <p>Moderação</p>
+     <p class="break-normal">Comandos de moderação simples de lembrar e mexer!</p>
+    </div>
+    </div>
+    <div class="pt-10">
+    <div class="container bg-slate-900 w-80 h-33 text-center items-center p-2 rounded-lg" style="filter: drop-shadow(0px 0px 5px #181818);">
+     <i class="fas fa-smile fa-2xl"></i>
+     <p>Utilidade</p>
+     <p class="break-normal">Comandos de informação e utilidade. Leve seu servidor para segurança maxima<a href="https://censor.bot/">!</a></p>
+    </div>
+    </div>
+    <div class="pt-10">
+    <div class="container bg-slate-900 w-80 h-33 text-center items-center p-2 rounded-lg" style="filter: drop-shadow(0px 0px 5px #181818);">
+     <i class="fas fa-smile fa-2xl"></i>
+     <p>Utilidade</p>
+     <p class="break-normal">Comandos de informação e utilidade. Leve seu servidor para segurança maxima<a href="https://censor.bot/">!</a></p>
+    </div>
+    </div>
+    </center>
+   </div>
+  
+  </div>
+  <%-include("./lib/loading.ejs")%>
+  <script src="/loading.js"></script>
+ </body>
 </html>
