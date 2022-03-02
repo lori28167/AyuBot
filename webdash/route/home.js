@@ -7,7 +7,7 @@ var express = require('express')
 router.get("/", (req,res) => {
   //console.log(req.client.user)
  res.render("index.ejs", {
-   req,res, user: req.user, cli:req.client
+   req,res, user: req.user, cli:req.client, message:req.flash('message')
  })
 })
 

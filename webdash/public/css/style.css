@@ -3,6 +3,9 @@
   padding: 0;
   margin:0;
 }
+html, body {
+  height:100%;
+}
 body {
   /*background: #202033;*/
   color: white;
@@ -39,7 +42,10 @@ body {
   -o-transition:      all 0.5s  ease;
   -ms-transition:     all 0.5s  ease;
 }
-
+[role="tab"]#danger-tab.active {
+    color:#dc2626;
+    border-color:#dc2626;
+    }
 #loading {
   display: block;
   position: absolute;
@@ -66,4 +72,17 @@ body {
   height: 0px;
   background:transparent;
   cursor: pointer;
+}
+#box {
+  animation-name: translate;
+  animation-duration: 500ms;
+  animation-timing-function: ease-in-out;
+}
+@keyframes translate {
+  from {
+    translate: transformY(-500);
+  }
+  to {
+    translate: transformY(2);
+  }
 }

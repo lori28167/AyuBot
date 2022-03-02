@@ -1,16 +1,23 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS], shards: 'auto'});
 const app = require('express')();
+const alex = require('alexflipnote.js');
+const alexclient = new alex();
+const animality = require('animality');
+
+client.animal = animality
 client.commands = new Collection();
 client.db = require('./db.js')
+client.alex = alexclient;
+/*app.client = client;*/
 
-
-require('./webdash/server')
+require('./webdash/server');
 
 client.once('ready', () => {
   console.log('Connected !')
+
 });
 
 const cmd_folders = fs.readdirSync('./commands');
@@ -37,6 +44,8 @@ client.on('interactionCreate', async interaction => {
       _id: interaction.guild.id,
       name: interaction.guild.name,
       icon: interaction.guild.icon?interaction.guild.iconURL({size: 4096}):"https://cdn.discordapp.com/embed/avatars/0.png",
+      bio: "Um servidor :D",
+      verified:false,
       config: {
         welcome: {
           channel: "",
@@ -75,4 +84,4 @@ client.on('interactionCreate', async interaction => {
 });
 
 
-client.login(token);
+client.login(process.env.token);

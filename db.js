@@ -18,6 +18,8 @@ const Guild = new Schema({
   _id: String,
   name: String,
   icon: String,
+  bio: String,
+  verified: Boolean,
   config: {
     welcome: {
      channel: String,

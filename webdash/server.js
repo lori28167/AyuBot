@@ -7,20 +7,37 @@ var express = require('express')
   , refresh = require('passport-oauth2-refresh');
 const db = require('../db.js')
 const { Client, Collection, Intents } = require('discord.js');
+const bodyParser = require('body-parser')
+const flash = require('connect-flash');
+const cors = require('cors')
 // const { token } = require('./config/config');
-var intents = new Intents([Intents.FLAGS.GUILDS])
-const client = new Client({ intents });
-client.login(process.env.token);
+var subdomains = require('express-subdomains')
 
-app.use(function(req, res, next) {
-  req.client = client;
-  req.db = db;
-  next();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS], shard:'auto'});
+const hcaptcha = require('express-hcaptcha');
+
+client.login(process.env.token)
+client.on("ready", () => {
+  console.log("[Web Bot] Online")
 })
+app.use(function(req, res, next) {
+    req.client = client;
+    req.db = db;
+    
+    next();
+
+})
+subdomains
+  .use('dashboard');
+app.use(subdomains.middleware);
+app.use(cors());
+app.use(flash());
+//app.use(require('flash')());
 app.use(express.static("webdash/public"))
 app.set('views', __dirname + "/views")
 app.set('view engine', 'ejs');
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // Oauth2
 passport.serializeUser(function(user, done) {
   done(null, user);

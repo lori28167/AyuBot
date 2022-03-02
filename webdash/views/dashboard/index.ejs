@@ -3,39 +3,27 @@
  <%-include('../lib/head.ejs', {title: "Ayu - Dashboard", description: ""})%>
  <body class="bg-[#181818] cursor-auto">
  <div class="page">
-  <div id="profile_info" class="h-[30rem] bg-indigo-500 rounded-b-lg" style="filter: drop-shadow(0px 0px 5px #6366f1);">
   <%-include('../lib/nav.ejs')%>
-  <center>
-  <%if(req.user.avatar) {%>
-  <img src="https://cdn.discordapp.com/avatars/<%=req.user.id%>/<%=req.user.avatar%>?size=4096" class="rounded-full" width="200"/>
-    
-    <%} else {%>
-     <img src="https://cdn.discordapp.com/embed/avatars/0.png?size=4096" class="rounded-full" width="200"/>
-   <%}%>
-   <br>
-   <h1><%=req.user.username%>#<%=user.discriminator%></h1>
-   <br>
-   <button type="button" class="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150" onclick="window.location.href='/dashboard/settings';">
-     Settings
-     </button>
-   </center>
-      </div>
-   <br>
-   <center>
   <div class="grid gap-x-8 gap-y-4 grid-cols-3 justify-items-center">
-    <%user.guilds.filter(e => e.permissions === 2147483647).forEach(g => {%>
+    <%if(user.guilds.filter(e => e.permissions === 2147483647)) {%>
+    <%user.guilds.filter(e => e.permissions === 2147483647 ).forEach(g => {%>
     <%if(cli.guilds.cache.get(g.id)) {%>
-     <img onclick="location.href='/dashboard/guild/<%=g.id%>';" class="rounded-full" alt="Icone do <%=g.name%>" src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" style="border: 3px solid #eee; background:#eee;" width="75px"/>
-    <%
-    } else {%>
-     <img onclick="location.href='/dashboard/guild/<%=g.id%>'" class="rounded-full" alt="Icone do <%=g.name%>" src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" style="border: 3px solid #eee; background:#eee; filter: grayscale(100%);" width="75px"/>
+     <img onclick="location.href='/dashboard/guild/<%=g.id%>';" class="rounded-full cursor-pointer" alt="Icone do <%=g.name%>" src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" style="border: 3px solid #eee; background:#eee;" width="75px" data-tooltip-target="tooltip-right-<%=g.id%>" data-tooltip-placement="right"/>
+    <%} else {%>
+     <img onclick="location.href='/dashboard/guild/<%=g.id%>'" class="rounded-full cursor-pointer" alt="Icone do <%=g.name%>" src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" style="border: 3px solid #eee; background:#eee; filter: grayscale(100%);" width="75px" data-tooltip-target="tooltip-right-<%=g.id%>" data-tooltip-placement="right"/>
    
     <%}%>
-  
+    <div id="tooltip-right-<%=g.id%>" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
+    <%=g.name%>
+    </div>
     <%})%>
+    <%} else {%>
+     <center>
+      <h2>Não tem servidores para acompanhar</h2>
+     </center>
+    <%}%>
   </div>
-  </center>
    </div>
-   
+   <%-include("../lib/script.ejs")%>
   </body>
   </html>

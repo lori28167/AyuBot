@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+ <%-include('../lib/head.ejs', {title: "Ayu - Dashboard", description: ""})%>
+ <body class="bg-[#181818] cursor-auto">
+ <div class="page">
+  <div id="profile_info" class="h-screen bg-indigo-500 rounded-b-lg" style="filter: drop-shadow(0px 0px 5px #6366f1);">
+  <%-include('../lib/nav.ejs')%>
+  <div class="flex grid grid-rows-1 text-center justify-center items-center">
+   <%if(req.user.avatar) {%>
+  <img src="https://cdn.discordapp.com/avatars/<%=req.user.id%>/<%=req.user.avatar%>?size=4096" class="rounded-full" width="200"/>
+    
+    <%} else {%>
+     <img src="https://cdn.discordapp.com/embed/avatars/0.png?size=4096" class="rounded-full" width="200"/>
+   <%}%>
+   <br>
+   <h1><%=req.user.username%>#<%=user.discriminator%></h1>
+   <br>
+    <label class="block mb-2 text-sm font-medium text-gray-300" for="user_avatar">Icone do seu perfil <span class="bg-yellow-200 text-yellow-900 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">Em breve</span></label>
+
+   <input class="block text-sm text-gray-400 bg-gray-700 rounded-lg border-gray-600 cursor-pointer focus:outline-none focus:border-transparent cursor-not-allowed" aria-describedby="server_avatar_help" id="user_avatar" type="file" disabled/>
+       
+  </div>
+  </div>
+  </div>
+   <%-include("../lib/script.ejs")%>
+  </body>
+  </html>
