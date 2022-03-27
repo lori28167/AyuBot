@@ -1,12 +1,13 @@
 <!doctype html>
-<html>
+<html height="100%">
  <%-include('../lib/head.ejs', {title: "Ayu - Dashboard", description: ""})%>
  <body class="bg-[#181818] cursor-auto">
  <div class="page">
   <%-include('../lib/nav.ejs')%>
   <div class="grid gap-x-8 gap-y-4 grid-cols-3 justify-items-center">
-    <%if(user.guilds.filter(e => e.permissions === 2147483647)) {%>
-    <%user.guilds.filter(e => e.permissions === 2147483647 ).forEach(g => {%>
+    <%user.guilds.forEach(g => {
+			const permsOnGuild = new perms(BigInt(g.permissions));
+      if(!permsOnGuild.has("MANAGE_GUILD")) return;%>
     <%if(cli.guilds.cache.get(g.id)) {%>
      <img onclick="location.href='/dashboard/guild/<%=g.id%>';" class="rounded-full cursor-pointer" alt="Icone do <%=g.name%>" src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" style="border: 3px solid #eee; background:#eee;" width="75px" data-tooltip-target="tooltip-right-<%=g.id%>" data-tooltip-placement="right"/>
     <%} else {%>
@@ -16,13 +17,8 @@
     <div id="tooltip-right-<%=g.id%>" role="tooltip" class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-700 rounded-lg shadow-sm opacity-0 tooltip">
     <%=g.name%>
     </div>
-    <%})%>
-    <%} else {%>
-     <center>
-      <h2>Não tem servidores para acompanhar</h2>
-     </center>
-    <%}%>
-  </div>
+     <%})%>
+    </div>
    </div>
    <%-include("../lib/script.ejs")%>
   </body>

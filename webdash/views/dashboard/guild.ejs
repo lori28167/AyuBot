@@ -1,14 +1,14 @@
 <!doctype html>
-<html ng-app>
+<html ng-app height="100%">
  <%-include('../lib/head.ejs', {title: "Ayu - Editando servidor", description: ""})%>
  <body class="bg-[#181818] cursor-auto" >
   <%-include('../lib/nav.ejs')%>
  <div class="page">
-  <%user.guilds.forEach(g => {%>
-   <%if(req.params.id === g.id) {%>
-   <%if(cli.guilds.cache.get(g.id)) {%>
-   <%if(g.permissions === 2147483647) {%>
-   <%if(guild) {%>
+  <%user.guilds.forEach(g => {
+		if(g.id !== req.params.id) return;
+		const permsOnGuild = new perms(BigInt(g.permissions));
+    if(!permsOnGuild.has("MANAGE_GUILD")) return;%>
+    <%if(guild) {%>
    <br>
     <center>
      <img src="<%=guild.icon%>" class="rounded-full mr-3 w-[100px] sm:w-[200px]"/>
@@ -17,36 +17,15 @@
       </center>
      <br>
      <%-include('./lib/tabs.ejs', {g})%>
-     
      <%} else {%>
-      <div class="flex flex-col h-screen justify-center text-center items-center" height="100%">
-      <h1 class="text-2xl">404</h1>
-      <br>
-      <h4>Não achei seu servidor :(</h4>
-      <p>Dica: Execute um comando, e refresque a pagina.</p>
-      </div>
-     <%}%>
-      <%} else {%>
-       <div class="flex flex-col h-screen justify-center text-center items-center" height="100%">
-      <h1 class="text-2xl">404</h1>
-      <br>
-      <h4>Não achei seu servidor :(</h4>
-      <p>Dica: Execute um comando, e refresque a pagina.</p>
-      </div>
-      <%}%>
-     <%} else {%>
-      <center>
-       <img src="<%=g.icon ?`https://cdn.discordapp.com/icons/${g.id}/${g.icon}`:"https://cdn.discordapp.com/embed/avatars/0.png"%>" class="rounded-full" width="200"/>
-     <br>
-     <p><%=g.name%></p>
-     <br>
-     <button onclick="window.location.href='https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=8&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds%20applications.commands&guild_id=<%=g.id%>&disable_guild_select=true';" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Convidar bot</button>
-     <button onclick="window.history.back()" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Ainda estou pensando...</button>
-      </center>
-     <%}%>
-   <%}%>
-  <%})%>
-  </div>
+			 <div class="flex flex-wrap flex-col justify-center items-center text-center w-full h-[95vh]">
+				 <strong><h1 class="text-2xl">Erro</h1></strong>
+				 <p class="text-white text-base">Parece que esse servidor não existe, ou não está salvo nos meus arquivos.</p>
+				 <p class="text-gray-500 text-sm">Execute um comando nesse servidor e refresque a página</p>
+			 </div>
+			 <%}
+			 })%>
+    </div>
   <%-include("../lib/script.ejs")%>
   </body>
   </html>

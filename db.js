@@ -23,11 +23,11 @@ const Guild = new Schema({
   config: {
     welcome: {
      channel: String,
-     message: Object
+     message: String
     },
     bye: {
       channel: String,
-      message: Object
+      message: String
     }
   }
 })

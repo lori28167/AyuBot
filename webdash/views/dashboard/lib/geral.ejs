@@ -1,0 +1,113 @@
+<center>
+ <strong><h2>Geral</h2></strong>
+</center>
+<div class="flex justify-between mb-1">
+         <span class="text-base font-medium text-white">Membros</span>
+        <span class="text-sm font-medium text-white" id="members"><%=cli.guilds.cache.get(g.id).memberCount%> / 250.000</span>
+            </div>
+            <div class="bg-gray-700 rounded-full h-2.5 " width="100%">
+                   <div class="bg-blue-600 h-2.5 rounded-full" id="count" style="width:<%=cli.guilds.cache.get(g.id).memberCount/100%>px;"></div>
+              </div>
+       <br>
+        </br>
+	     <center>
+	      <strong><h2>Boas vindas</h2></strong>
+		   </center>
+	<br>
+<!--action="/dashboard/guild/<%=g.id%>/welcome" method="post"-->
+	     <form id="welcome">
+	      <center>
+				 <select name="channel" id="wchannel" class="bg-slate-900 text-white text-center p-1 border-none">
+					 <option value="false">Off</option>
+				 <%cli.guilds.cache.get(g.id).channels.cache.forEach(c => {%>
+					 <%if(c.type === "GUILD_TEXT") {%> 
+					  <option value="<%=c.id%>" <%if(c.id ===  guild.config.welcome.channel) {%>selected<%}%>>
+						 <%=c.name%>
+						</option>
+			   <%}
+					 })%>
+			   </select>
+					 <br>
+					 <br>
+			   <textarea class="bg-slate-900 text-white text-center p-1 border-none" name="message" id="wmessage"><%=guild.config.welcome.message%></textarea>
+					 <p class="text-sm text-gray-500">• Para isso, você precisa saber o básico de JSON, é fácil! <a href="https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/JSON" class="text-blue-500">Saiba mais</a>!</p>
+				</center>
+					 <br>
+				<button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150 float-right" id="wsave" type="submit">Salvar</button>
+			 </form>
+			<br>
+				 </br>
+					 <br>
+					 <center>
+	      <strong><h2>Saída</h2></strong>
+		   </center>
+					 <br>
+					 <!--action="/dashboard/guild/<%=g.id%>/exit" method="post"-->
+	     <form id="leave">
+	      <center>
+				 <select name="channel" id="lchannel" class="bg-slate-900 text-white text-center p-1 border-none">
+					 <option value="false">Off</option>
+				 <%cli.guilds.cache.get(g.id).channels.cache.forEach(c => {%>
+					 <%if(c.type === "GUILD_TEXT") {%> 
+					  <option value="<%=c.id%>" <%if(c.id ===  guild.config.bye.channel) {%>selected<%}%>>
+						 <%=c.name%>
+						</option>
+			   <%}
+					 })%>
+			   </select>
+					 <br>
+					 <br>
+			   <textarea id="lmessage" class="bg-slate-900 text-white text-center p-1 border-none" name="message"><%=guild.config.bye.message%></textarea>
+					 <p class="text-sm text-gray-500">• Para isso, você precisa saber o básico de JSON, é fácil! <a href="https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/JSON" class="text-blue-500">Saiba mais</a>!</p>
+				</center>
+					 <br>
+				<button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150 float-right" id="lsave" type="submit">Salvar</button>
+			 </form>
+       </div>
+</div>
+
+					 <script>
+						 const socket = io();
+
+						 socket.on("memberGuildUpdate", (info) => {
+							 console.log(info)
+							 if(info.guild.id === "<%=req.params.id%>") {
+							 console.log(info)
+							 const members = document.getElementById("members");
+							 members.innerHTML = info.members + " / 250.000";
+							 const count = document.getElementById("count");
+							 count.style.width = info.members/100 + "px"
+							 } else return;
+						 })
+						 const wsave = document.getElementById("wsave")
+						 const lsave = document.getElementById("lsave")
+						 const welcome = document.getElementById("welcome");
+						 const wchannel = document.getElementById("wchannel");
+						 const wmessage = document.getElementById("wmessage");
+						 welcome.onsubmit = (e) => {
+							 socket.emit("welcomeUpdate", {
+								 channel: wchannel.value,
+					       message: wmessage.value,
+								 guild: "<%=g.id%>"
+							 })
+								 wsave.innerHTML = "Salvo!"
+								 setTimeout(() => {
+									 wsave.innerHTML = "Salvar"
+								 },1000)
+						 }
+						 const leave = document.getElementById("leave");
+						 const lchannel = document.getElementById("lchannel");
+						 const lmessage = document.getElementById("lmessage");
+						 leave.onsubmit = (e) => {
+							 socket.emit("leaveUpdate", {
+								 channel: lchannel.value,
+					       message: lmessage.value,
+								 guild: "<%=g.id%>"
+							 })
+							
+								 lsave.innerHTML = "Salvo!"
+								 setTimeout(() => {
+									 lsave.innerHTML = "Salvar"
+								 },1000)
+						 }
+					 </script>

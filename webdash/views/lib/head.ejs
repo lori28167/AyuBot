@@ -17,8 +17,25 @@
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
   <script src="https://kit.fontawesome.com/2c8728d622.js" crossorigin="anonymous"></script>
+	<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
   <script
       type="module"
       src="https://unpkg.com/@skyra/discord-components-core"
     ></script>
+	<script>
+		const sockets = io();
+		Notification.requestPermission(/* opcional: callback */);
+
+		sockets.on("notification", (info) => {
+        var notification = new Notification(info.title, {
+            icon: '/favicon.png',
+            body: info.body
+        });
+        notification.onclick = function() {
+            //SUA LÓGICA AQUI
+        }
+			notification.show();
+		})
+		sockets.emit('notification', {title: "teste", body:"teste"})
+	</script>
  </head>

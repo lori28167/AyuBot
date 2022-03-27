@@ -12,13 +12,35 @@
      <br>
      <br>
      <button onclick="window.location.href='/dashboard'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Painel</button>
-
+    <br>
+		<center>
+			<p class="text-2xl">Live count:</p>
+			<p>Guilds: <span id="guilds"><%=cli.guilds.cache.size%></span></p>
+			<p>Users: <span id="users"><%=cli.users.cache.size%></span></p>
+			<p>Ping: <span id="ping"><%=cli.ws.ping%></span></p>
+		</center>
     
    </div>
    </div>
   </div>
+		
    <%-include("./lib/script.ejs")%>
   <%-include("./lib/loading.ejs")%>
+	
+		<script>
+			const socket = io();
+			//socket.on("connect", (socket) => {
+				socket.on("guildUpdate", (info) => {
+					var user = document.getElementById("users");
+					var guild = document.getElementById("guilds");
+					var ping = document.getElementById("ping");
+					//console.log(info)
+					user.innerHTML = info.userCount
+					guild.innerHTML = info.guildCount;
+					ping.innerHTML = info.ping
+				})
+			//})
+		</script>
   <script src="/loading.js"></script>
  </body>
 </html>

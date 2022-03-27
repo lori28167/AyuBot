@@ -4,12 +4,12 @@ var express = require('express')
   , router = express.Router()
   , passport = require('passport');
   const hcaptcha = require('express-hcaptcha');
-
+const {Permissions} = require('discord.js')
 router.get("/", async(req,res) => {
   console.log(!req.user.guilds.filter(e => e.permissions === 2147483647))
   var guild = [];
  res.render("dashboard/index.ejs", {
-   req,res, user: req.user, cli:req.client, guild,message:req.flash('message')
+   req,res, user: req.user, cli:req.client, perms:Permissions, guild,message:req.flash('message')
  })
 })
 
@@ -18,7 +18,7 @@ router.get("/guild/:id", async(req,res) => {
     const guild = await req.db.guild.findOne({_id:req.params.id});
  
   res.render("dashboard/guild.ejs", {
-    req,res, user: req.user,message:req.flash('message'),  cli:req.client, guild, hctoken: process.env.hcaptcha
+    req,res, user: req.user,message:req.flash('message'),  cli:req.client, guild, hctoken: process.env.hcaptcha, perms:Permissions
   })
   } else {
     res.redirect(`https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=1099512146022&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds%20applications.commands&guild_id=${req.params.id}&disable_guild_select=true`)
@@ -56,4 +56,20 @@ router.get("/settings", function(req,res) {
     req,res, user: req.user, cli:req.client
   })
 })
+/*router.post("/guild/:id/welcome", async function(req,res) {
+	const client = req.client;
+	const guild = await req.db.guild.findOne({_id:req.params.id});
+	guild.config.welcome.channel = req.body.channel;
+	guild.config.welcome.message = req.body.message;
+	guild.save();
+	res.redirect(".")
+})
+router.post("/guild/:id/exit", async function(req,res) {
+	const client = req.client;
+	const guild = await req.db.guild.findOne({_id:req.params.id});
+	guild.config.bye.channel = req.body.channel;
+	guild.config.bye.message = req.body.message;
+	guild.save();
+	res.redirect(".")
+})*/
 module.exports = router;

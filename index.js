@@ -1,25 +1,46 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS], shards: 'auto'});
+const client = new Client({ intents: ["GUILDS","GUILD_MEMBERS"], shards: 'auto'});
 const app = require('express')();
 const alex = require('alexflipnote.js');
 const alexclient = new alex();
 const animality = require('animality');
-
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES], shards: 'auto'});
 client.animal = animality
+
+
+// Client 2
+bot.on("ready", () => {
+	console.log("Heartbeat online")
+})
+bot.on("messageCreate", (message) => {
+	if(message.author.bot) return;
+	if(message.content === "!welcome") {
+		client.emit("guildMemberAdd",message.member);
+		client.emit("guildMemberRemove", message.member);
+	}
+	if(message.content === "!ping") {
+		message.reply("Batimentos da Ayu está entre " + Math.floor(Math.random(client.ws.ping) / 1000) + "/" + client.ws.ping)
+	}
+})
+
+bot.login(process.env.client2)
+
 client.commands = new Collection();
 client.db = require('./db.js')
 client.alex = alexclient;
 /*app.client = client;*/
-
+module.exports = client;
 require('./webdash/server');
 
 client.once('ready', () => {
   console.log('Connected !')
 
 });
-
+client.on("debug", (debug) => {
+	console.log(debug)
+})
 const cmd_folders = fs.readdirSync('./commands');
 for (const f of cmd_folders) {
 
@@ -33,6 +54,36 @@ for (const f of cmd_folders) {
   }
 
 }
+
+client.on("guildMemberAdd", function(member) {
+	var g = member.guild;
+	client.db.guild.findOne({_id:g.id}, function(e,d) {
+	  //console.log(member)
+		if(!d) return;
+		const saved = d.config.welcome.message
+		.replace(/{user.username}/g, member.user.username)
+		.replace(/{@user}/g, `<@${member.id}>`)
+		const message = JSON.parse(saved)
+		const channel = g.channels.cache.get(d.config.welcome.channel);
+		if(!channel) return;
+		//.replace("{user.username}", member.username)
+		channel.send(message)
+	})
+})
+client.on("guildMemberRemove", function(member) {
+	var g = member.guild;
+	client.db.guild.findOne({_id:g.id}, function(e,d) {
+	  //console.log(member)
+		if(!d) return;
+		const saved = d.config.bye.message
+		.replace(/{user.username}/g, member.user.username)
+		const message = JSON.parse(saved)
+		const channel = g.channels.cache.get(d.config.bye.channel);
+		if(!channel) return;
+		//.replace("{user.username}", member.username)
+		channel.send(message)
+	})
+})
 
 client.on('interactionCreate', async interaction => {
 
@@ -49,11 +100,11 @@ client.on('interactionCreate', async interaction => {
       config: {
         welcome: {
           channel: "",
-          message: "Bem vindo(a) {user.username} ao servidor!"
+          message: "{\"content\":\"Bem vindo(a) {user.username} ao servidor!\"}"
         },
         bye: {
           channel: "",
-          message: "{user.username} saiu do servidor."
+          message: "{\"content\":\"{user.username} saiu do servidor.\"}"
         }
       }
     }).save()

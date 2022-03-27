@@ -9,7 +9,7 @@ module.exports = {
         .setDescription('[Fun] Chirp'),
     
     async execute(client,interaction) {
-  let link = await client.animal.getAsync("bird")
+  let link = await client.animal.getAsync("bird", process.env.animal)
    let tradutor = await translate(link.fact, {to:'pt'});
    const embed = new MessageEmbed()
 		.setImage(link.image)

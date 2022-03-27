@@ -10,7 +10,7 @@ module.exports = {
     .setDescription('[Fun] Woof'),
 
   async execute(client, interaction) {
-    let link = await client.animal.getAsync("dog")
+    let link = await client.animal.getAsync("dog", process.env.animal)
    let tradutor = await translate(link.fact, {to:'pt'});
    const embed = new MessageEmbed()
 		.setImage(link.image)

@@ -10,26 +10,64 @@ const { Client, Collection, Intents } = require('discord.js');
 const bodyParser = require('body-parser')
 const flash = require('connect-flash');
 const cors = require('cors')
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+http.listen(3000)
+
+module.exports.io = io;
 // const { token } = require('./config/config');
 var subdomains = require('express-subdomains')
-
-const client = new Client({ intents: [Intents.FLAGS.GUILDS], shard:'auto'});
+const client = require('../index.js')
 const hcaptcha = require('express-hcaptcha');
 
-client.login(process.env.token)
+  io.sockets.on("connection", socket => {
+  socket.on("welcomeUpdate", async(welcome) => {
+		const guild = await db.guild.findOne({_id:welcome.guild});
+	guild.config.welcome.channel = welcome.channel;
+	guild.config.welcome.message = welcome.message;
+	guild.save();
+		console.log(welcome)
+	})
+		socket.on("leaveUpdate", async(welcome) => {
+		const guild = await db.guild.findOne({_id:welcome.guild});
+	guild.config.bye.channel = welcome.channel;
+	guild.config.bye.message = welcome.message;
+	guild.save();
+		console.log(welcome)
+	})
+	console.log("[Socket] Connected");
+	socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	setInterval(() => {
+	  socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+		// console.log("Updated");
+	},1000)
+	client.on("guildMemberAdd", (member) => {
+		socket.emit("memberGuildUpdate", {members:member.guild.memberCount, guild: member.guild});
+		socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	})
+	client.on("guildMemberRemove", (member) => {
+		socket.emit("memberGuildUpdate", {members:member.guild.memberCount, guild: member.guild});
+		socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	})
+  client.on("guildCreate", () => {
+	 socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+ })
+	client.on("guildDelete", () => {
+	 socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+ })
+	})
+//client.login(process.env.token)
 client.on("ready", () => {
+	
   console.log("[Web Bot] Online")
 })
 app.use(function(req, res, next) {
     req.client = client;
     req.db = db;
-    
+    req.io = io;
     next();
 
 })
-subdomains
-  .use('dashboard');
-app.use(subdomains.middleware);
 app.use(cors());
 app.use(flash());
 //app.use(require('flash')());
@@ -82,13 +120,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 // Router
+/*app.get("*", isAuth, (req,res) => {
+	if(!req.user.id !== "407859300527243275") return res.redirect("/auth/callback");
+	
+	next()
+})*/
 app.use("/", require('./route/home.js'));
 app.use("/dashboard", isAuth, require('./route/dashboard.js'));
 app.use("/auth", require('./route/lib/authRouter.js'));
 app.use(function(req,res) {
   res.send(404)
   res.render("lib/errors/404.ejs",{
-       req,res, user: req.user, cli:req.client
+       req,res, user: req.user, cli:req.client, message:""
   })
 })
 app.use(function(req,res) {
@@ -104,5 +147,4 @@ function isAuth(req,res,next) {
  //req.session.redirectTo = req.originalUrl;
  res.redirect("/auth/login");
 }
-
-app.listen(3000);
+//app.listen(3000);
