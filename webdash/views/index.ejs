@@ -1,36 +1,22 @@
 <!doctype html>
-<html>
+<html height="100%">
  <%-include('./lib/head.ejs', {title: "", description: ""})%>
- <body class="bg-[#181818] cursor-auto">
-  <%-include('./lib/nav.ejs')%>
- <div class="page">
-  <div class="bg-[#181818] h-screen" style="filter: drop-shadow(0px 5px 5px #181818);">
-  <div class="grid justify-items-center p-5 h-96">
-    <!-- ... -->
-        <img class="rounded-full" id="avatar" src="https://media.discordapp.net/attachments/910534717445660725/934496495695183872/381e231b632c742d9033e3138ec0eb49-removebg-preview.png" width="200"/>
-     <h3>Olá <%=req.user?req.user.username:"Usuário"%>, Bem vindo ao site oficial da Ayu!</h3>
-     <br>
-     <br>
-     <button onclick="window.location.href='/dashboard'" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150">Painel</button>
-    <br>
-		<center>
-			<p class="text-2xl">Live count:</p>
-			<p>Guilds: <span id="guilds"><%=cli.guilds.cache.size%></span></p>
-			<p>Users: <span id="users"><%=cli.users.cache.size%></span></p>
-			<p>Ping: <span id="ping"><%=cli.ws.ping%></span></p>
-		</center>
-    
-   </div>
-   </div>
-  </div>
-		
+  <%-include("./lib/nav.ejs");%>
+		<div class="flex flex-col items-center justify-center w-full h-full">
+			<img src="/favicon.png" width="200px"/>
+			<p>Seja bem vindo ao site da Ayu</p>
+			<%if(!req.isAuthenticated()) {%>
+			 <p>Porque não começar com um pequeno login?</p>
+			 <a class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 m-3
+				transition-all duration-200" href='/auth/login'>Login</a>
+			<%}%>
+		</div>
    <%-include("./lib/script.ejs")%>
-  <%-include("./lib/loading.ejs")%>
 	
 		<script>
 			const socket = io();
 			//socket.on("connect", (socket) => {
-				socket.on("guildUpdate", (info) => {
+				/*socket.on("guildUpdate", (info) => {
 					var user = document.getElementById("users");
 					var guild = document.getElementById("guilds");
 					var ping = document.getElementById("ping");
@@ -38,9 +24,8 @@
 					user.innerHTML = info.userCount
 					guild.innerHTML = info.guildCount;
 					ping.innerHTML = info.ping
-				})
+				})*/
 			//})
 		</script>
-  <script src="/loading.js"></script>
  </body>
 </html>

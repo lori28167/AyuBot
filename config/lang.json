@@ -1,0 +1,28 @@
+{
+	"pt-br": {
+		 "ping": {
+			 "text": "Meu ping atual é {ping} MS"
+		 },
+		"help": {
+			"title": ":question: • Ajuda",
+			"description": "Precisa de ajuda? Entre no meu [servidor do Discord](https://discord.gg/BzJn5Je)!\nComandos:",
+			"fields": [{
+				"name": "<:emoji_4:700116823542202378> • Moderação",
+				"value": "`ban,kick,timeout`"
+			}, {
+				"name": "<:emoji_5:700116865116012615> • Diversão",
+				"value": "`bird, cat, dog`"
+			}, {
+				"name": "<:nikkk:739995169671217203> • Economia",
+				"value": "`coins, work`"
+			 }, {
+				"name": "<:emoji_7:700117276434759800> • Configurações",
+				"value": "`dashboard, setlang`"
+			 }, {
+				"name": ":info: • Informações",
+				"value": "`help, info <server>, ping`"
+			 }
+			]
+		}
+	}
+}

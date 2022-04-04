@@ -22,7 +22,13 @@
       type="module"
       src="https://unpkg.com/@skyra/discord-components-core"
     ></script>
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/css/uikit.min.css" />
+
+<!-- UIkit JS -->
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit-icons.min.js"></script>
 	<script>
+		
 		const sockets = io();
 		Notification.requestPermission(/* opcional: callback */);
 
@@ -39,3 +45,4 @@
 		sockets.emit('notification', {title: "teste", body:"teste"})
 	</script>
  </head>
+ <body class="bg-slate-900">

@@ -11,7 +11,8 @@ const User = new Schema({
   about: String,
   economy: {
     coins: Number
-  }
+  },
+	lang: {type: String, default: "pt-br", required:true}
 });
 
 const Guild = new Schema({
@@ -28,7 +29,17 @@ const Guild = new Schema({
     bye: {
       channel: String,
       message: String
-    }
+    },
+		system: {
+			antinsfw: {
+				default: false,
+				type: Boolean
+			},
+			antilink: {
+				default: false,
+				type: Boolean
+			}
+		}
   }
 })
 module.exports.guild = new mongo.model("guild", Guild)

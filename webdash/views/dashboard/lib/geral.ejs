@@ -60,6 +60,7 @@
 			   <textarea id="lmessage" class="bg-slate-900 text-white text-center p-1 border-none" name="message"><%=guild.config.bye.message%></textarea>
 					 <p class="text-sm text-gray-500">• Para isso, você precisa saber o básico de JSON, é fácil! <a href="https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/JSON" class="text-blue-500">Saiba mais</a>!</p>
 				</center>
+
 					 <br>
 				<button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 transition-all delay-150 float-right" id="lsave" type="submit">Salvar</button>
 			 </form>
@@ -67,6 +68,21 @@
 </div>
 
 					 <script>
+
+// Discord Component
+              window.$discordMessage = {
+								profiles: {
+									ayu: {
+										author: 'Ayu',
+										bot:true,
+									  avatar:"https://images-ext-1.discordapp.net/external/0snFwgzynAMJfcixtQidvPig5OOk6WsKC9GzirssZww/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/699016235228201010/1e6b1a8ba6fa3142ea1dbe74e0a87674.png?width=695&height=695",
+										verified: true
+									}
+								}
+							}
+
+						 
+						 // Live update 
 						 const socket = io();
 
 						 socket.on("memberGuildUpdate", (info) => {

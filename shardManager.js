@@ -1,5 +1,5 @@
 const { ShardingManager, Client, Intents } = require('discord.js');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS], shards: 'auto' });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS] });
 const manager = new ShardingManager('./index.js', {
   execArgv: ['--trace-warnings'],
   shardArgs: ['--ansi', '--color'],
@@ -17,6 +17,6 @@ manager.on('shardCreate', shard => {
 });
 manager.spawn()
   .then(shards => {
-
+    
   })
   .catch(console.error);

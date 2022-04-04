@@ -12,15 +12,16 @@ const flash = require('connect-flash');
 const cors = require('cors')
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-http.listen(3000)
-
+var listen = Math.floor(Math.random(1000)*9999)
+http.listen(listen)
+console.log(listen)
 module.exports.io = io;
 // const { token } = require('./config/config');
 var subdomains = require('express-subdomains')
 const client = require('../index.js')
 const hcaptcha = require('express-hcaptcha');
 
-  io.sockets.on("connection", socket => {
+  io.sockets.on("connection", async socket => {
   socket.on("welcomeUpdate", async(welcome) => {
 		const guild = await db.guild.findOne({_id:welcome.guild});
 	guild.config.welcome.channel = welcome.channel;
@@ -36,24 +37,29 @@ const hcaptcha = require('express-hcaptcha');
 		console.log(welcome)
 	})
 	console.log("[Socket] Connected");
-	socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+
+		const memberCount = await client.shard
+	.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
+    const guildCount = client.guilds.cache.size;
+
+	socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
 	setInterval(() => {
-	  socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	  socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
 		// console.log("Updated");
 	},1000)
 	client.on("guildMemberAdd", (member) => {
 		socket.emit("memberGuildUpdate", {members:member.guild.memberCount, guild: member.guild});
-		socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+		socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
 	})
 	client.on("guildMemberRemove", (member) => {
 		socket.emit("memberGuildUpdate", {members:member.guild.memberCount, guild: member.guild});
-		socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+		socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
 	})
   client.on("guildCreate", () => {
-	 socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	 socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
  })
 	client.on("guildDelete", () => {
-	 socket.emit("guildUpdate", {guildCount: client.guilds.cache.size, userCount: client.users.cache.size, ping: client.ws.ping});
+	 socket.emit("guildUpdate", {guildCount: guildCount, userCount: memberCount, ping: client.ws.ping});
  })
 	})
 //client.login(process.env.token)
