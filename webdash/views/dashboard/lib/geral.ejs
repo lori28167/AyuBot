@@ -1,23 +1,11 @@
 <center>
- <strong><h2>Geral</h2></strong>
-</center>
-<div class="flex justify-between mb-1">
-         <span class="text-base font-medium text-white">Membros</span>
-        <span class="text-sm font-medium text-white" id="members"><%=cli.guilds.cache.get(g.id).memberCount%> / 250.000</span>
-            </div>
-            <div class="bg-gray-700 rounded-full h-2.5 " width="100%">
-                   <div class="bg-blue-600 h-2.5 rounded-full" id="count" style="width:<%=cli.guilds.cache.get(g.id).memberCount/100%>px;"></div>
-              </div>
-       <br>
-        </br>
-	     <center>
-	      <strong><h2>Boas vindas</h2></strong>
+	      <strong><h2 class="text-white">Boas vindas</h2></strong>
 		   </center>
 	<br>
 <!--action="/dashboard/guild/<%=g.id%>/welcome" method="post"-->
 	     <form id="welcome">
 	      <center>
-				 <select name="channel" id="wchannel" class="bg-slate-900 text-white text-center p-1 border-none">
+				 <select name="channel" id="wchannel" class="bg-slate-800 text-white text-center p-1 border-none">
 					 <option value="false">Off</option>
 				 <%cli.guilds.cache.get(g.id).channels.cache.forEach(c => {%>
 					 <%if(c.type === "GUILD_TEXT") {%> 
@@ -29,7 +17,7 @@
 			   </select>
 					 <br>
 					 <br>
-			   <textarea class="bg-slate-900 text-white text-center p-1 border-none" name="message" id="wmessage"><%=guild.config.welcome.message%></textarea>
+			   <textarea class="bg-slate-800 text-white text-center p-1 border-none" name="message" id="wmessage"><%=guild.config.welcome.message%></textarea>
 					 <p class="text-sm text-gray-500">• Para isso, você precisa saber o básico de JSON, é fácil! <a href="https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/JSON" class="text-blue-500">Saiba mais</a>!</p>
 				</center>
 					 <br>
@@ -39,13 +27,13 @@
 				 </br>
 					 <br>
 					 <center>
-	      <strong><h2>Saída</h2></strong>
+	      <strong><h2 class="text-white">Saída</h2></strong>
 		   </center>
 					 <br>
 					 <!--action="/dashboard/guild/<%=g.id%>/exit" method="post"-->
 	     <form id="leave">
 	      <center>
-				 <select name="channel" id="lchannel" class="bg-slate-900 text-white text-center p-1 border-none">
+				 <select name="channel" id="lchannel" class="bg-slate-800 text-white text-center p-1 border-none">
 					 <option value="false">Off</option>
 				 <%cli.guilds.cache.get(g.id).channels.cache.forEach(c => {%>
 					 <%if(c.type === "GUILD_TEXT") {%> 
@@ -57,7 +45,7 @@
 			   </select>
 					 <br>
 					 <br>
-			   <textarea id="lmessage" class="bg-slate-900 text-white text-center p-1 border-none" name="message"><%=guild.config.bye.message%></textarea>
+			   <textarea id="lmessage" class="bg-slate-800 text-white text-center p-1 border-none" name="message"><%=guild.config.bye.message%></textarea>
 					 <p class="text-sm text-gray-500">• Para isso, você precisa saber o básico de JSON, é fácil! <a href="https://developer.mozilla.org/pt-BR/docs/Learn/JavaScript/Objects/JSON" class="text-blue-500">Saiba mais</a>!</p>
 				</center>
 

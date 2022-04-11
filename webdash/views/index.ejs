@@ -2,18 +2,66 @@
 <html height="100%">
  <%-include('./lib/head.ejs', {title: "", description: ""})%>
   <%-include("./lib/nav.ejs");%>
-		<div class="flex flex-col items-center justify-center w-full h-full">
+		<div class="flex flex-col items-center justify-center w-full h-[70vh] lg:h-[50vh]">
 			<img src="/favicon.png" width="200px"/>
 			<p>Seja bem vindo ao site da Ayu</p>
 			<%if(!req.isAuthenticated()) {%>
 			 <p>Porque não começar com um pequeno login?</p>
 			 <a class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 m-3
 				transition-all duration-200" href='/auth/login'>Login</a>
+			<%} else {%>
+				<p>Que tal ver seus servidores agora?</p>
+				<a class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 m-3
+				transition-all duration-200" href='/dashboard'>Painel</a>
 			<%}%>
 		</div>
+				<div class="bg-pink-500">
+					<svg xmlns="http://www.w3.org/2000/svg" class="" viewBox="0 0 1440 320"><path fill="" class="fill-slate-900" fill-opacity="1" d="M0,128L48,138.7C96,149,192,171,288,176C384,181,480,171,576,165.3C672,160,768,160,864,181.3C960,203,1056,245,1152,234.7C1248,224,1344,160,1392,128L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+			  <div class="m-3">
+				    <center>
+							<div class="m-3">
+							<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-check"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+							
+							<strong><h1 class="text-white text-2xl">Fácil de usar</h1></strong>
+							<p>Ayu é um dos bots mais fáceis de usar</p>
+				</div>
+							<div class="m-3">
+								<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+								<strong><h1 class="text-white text-2xl">Rápido</h1></strong>
+							<p>Ayu além de Fácil, é rápido!</p>
+								<p>Ping: <%=req.client.ws.ping%></p>
+							</div>
+							<div class="m-3">
+								<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+								<strong><h1 class="text-white text-2xl">Painel</h1></strong>
+							<p>Ayu tem um painel simples para usuários configurar seus servidores!</p>
+							
+							</div>
+							<div class="m-3">
+								<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+								<strong><h1 class="text-white text-2xl">Online sempre</h1></strong>
+							<p>Ayu é 24/7 online, 24 horas e 7 dias sem parar de trabalhar, uff quão cansado fica não é?</p>
+							</div>
+						</center>
+				</div>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path class="fill-slate-900" fill-opacity="1" d="M0,128L60,149.3C120,171,240,213,360,202.7C480,192,600,128,720,101.3C840,75,960,85,1080,85.3C1200,85,1320,75,1380,69.3L1440,64L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+		 </div>
+			<div class="p-3 flex flex-col md:flex-wrap justify-center items-center bg-slate-900">
+			 <div class="bg-slate-800 flex flex-col justify-center items-center w-64 h-32 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-2 transition-all">
+				 <strong><h1 class="text-2xl text-white"><%=req.client.guilds.cache.size%></h1></strong>
+				 <p class="text-gray-200">Servidores</p>
+			 </div>
+			 <div class="m-3 bg-slate-800 flex flex-col justify-center items-center w-64 h-32 rounded-xl shadow-md hover:shadow-lg hover:-translate-y-2 transition-all">
+				 <strong><h1 class="text-2xl text-white"><%=req.client.users.cache.size%></h1></strong>
+				 <p class="text-gray-200">Usuários</p>
+			 </div>
+			</div>
+				
+									
    <%-include("./lib/script.ejs")%>
 	
 		<script>
+			feather.replace()
 			const socket = io();
 			//socket.on("connect", (socket) => {
 				/*socket.on("guildUpdate", (info) => {

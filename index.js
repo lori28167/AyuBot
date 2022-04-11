@@ -1,7 +1,8 @@
 const fs = require('fs');
+const Discord = require('discord.js');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-const client = new Client({ intents: ["GUILDS","GUILD_MEMBERS"], shards: 'auto'});
+const client = new Client({ intents: ["GUILDS","GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"], shards: 'auto'});
 const app = require('express')();
 const alex = require('alexflipnote.js');
 const alexclient = new alex();
@@ -29,7 +30,7 @@ const config = {
 	ownerID: "407859300527243275"
 }
 const clean = require('./config/clean')
-bot.on("messageCreate", async (message) => {
+client.on("messageCreate", async (message) => {
 	if(message.author.bot) return;
 	
 	
@@ -76,16 +77,10 @@ bot.on("messageCreate", async (message) => {
 	}
 
 	// Anti-nsfw
-	require('./system/anti-nsfw')(client,message)
+	// require('./system/anti-nsfw')(client,message)
 //fn()
 	// Anti-link
-  const msg = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm.exec(message.content)
-  if(msg) {
-		message.delete();
-		message.channel.send(`${message.author} do not send links!`)
-		console.log(message.content + " " + message.author.tag)
-	} else {
-	}
+  
 })
 
 bot.login(process.env.client2)
@@ -101,7 +96,7 @@ client.once('ready', () => {
   setInterval(time, 16000)
 	function time() {
 					console.log("Online à " + ms(client.uptime))
-		      client.user.setActivity(`Estou online à ${ms(client.uptime)}`)
+		      // client.user.setActivity(`Estou online à ${ms(client.uptime)}`)
 	}
 	time()
 	
@@ -126,33 +121,52 @@ for (const f of cmd_folders) {
 
 }
 
-client.on("guildMemberAdd", function(member) {
+client.on("guildMemberAdd", async function(member) {
 	var g = member.guild;
-	client.db.guild.findOne({_id:g.id}, function(e,d) {
+	client.db.guild.findOne({_id:g.id}, async function(e,d) {
+		try {
 	  //console.log(member)
 		if(!d) return;
 		const saved = d.config.welcome.message
 		.replace(/{user.username}/g, member.user.username)
 		.replace(/{@user}/g, `<@${member.id}>`)
+		.replace(/{guild.name}/g, `${member.guild.name}`)
 		const message = JSON.parse(saved)
 		const channel = g.channels.cache.get(d.config.welcome.channel);
 		if(!channel) return;
 		//.replace("{user.username}", member.username)
-		channel.send(message)
+		channel.send(message);
+		} catch(e) {
+			const channel = g.channels.cache.get(d.config.welcome.channel);
+console.log(e)
+
+	  	if(!channel) return;
+		//.replace("{user.username}", member.username)
+		channel.send(`${member.user.username} entrou no servidor\n> Ocorreu um erro ao enviar a mensagem personalizada.`)
+		}
 	})
 })
-client.on("guildMemberRemove", function(member) {
+client.on("guildMemberRemove", async function(member) {
 	var g = member.guild;
-	client.db.guild.findOne({_id:g.id}, function(e,d) {
+	client.db.guild.findOne({_id:g.id}, async function(e,d) {
+		try {
 	  //console.log(member)
 		if(!d) return;
 		const saved = d.config.bye.message
 		.replace(/{user.username}/g, member.user.username)
+			
 		const message = JSON.parse(saved)
 		const channel = g.channels.cache.get(d.config.bye.channel);
 		if(!channel) return;
 		//.replace("{user.username}", member.username)
 		channel.send(message)
+		} catch(e) {
+      console.log(e)
+      const channel = g.channels.cache.get(d.config.welcome.channel);
+			if(!channel) return;
+		//.replace("{user.username}", member.username)
+		channel.send(`${member.user.username} saiu do servidor\n> Ocorreu um erro ao enviar a mensagem personalizada.`)
+		}
 	})
 })
 

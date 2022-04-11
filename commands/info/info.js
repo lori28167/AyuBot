@@ -10,10 +10,12 @@ module.exports = {
     async execute(client, interaction) {
       if (interaction.options.getSubcommand() === 'server') {
         const guild = await client.db.guild.findOne({_id:interaction.guild.id});
-        if(!guild) return interaction.reply("[Erro] Não achei o servidor em minha database, execute denovo!");
+				const user = await client.db.user.findOne({_id: interaction.user.id});
+        const lang = client.lang[user.lang];
+        if(!guild) return interaction.reply(lang.info.server.error.text);
         const embed = new MessageEmbed()
         .setTitle(`[INFO] ${interaction.guild.name}`)
-        .addField("Bio do servidor", guild.bio.toString())
+        .addField(lang.info.server.field, guild.bio.toString())
         .setColor("RANDOM")
         .setThumbnail(guild.icon);
         interaction.reply({embeds: [embed]})

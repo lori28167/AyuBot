@@ -23,6 +23,14 @@
 				"value": "`help, info <server>, ping`"
 			 }
 			]
+		},
+		"info": {
+			"server": {
+				"error": {
+					"text": "[Erro] Não achei o servidor em minha database, execute denovo!"
+				},
+				"field": "Descrição do servidor"
+			}
 		}
 	}
 }

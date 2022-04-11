@@ -44,5 +44,30 @@
 		})
 		sockets.emit('notification', {title: "teste", body:"teste"})
 	</script>
+	<script src="https://unpkg.com/feather-icons"></script>
+
+	<script>
+		feather.replace();
+	</script>
+	<script src="https://kit.fontawesome.com/2c8728d622.js" crossorigin="anonymous"></script>
+	<style type="text/tailwindcss">
+		@tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+}
+
+@tailwind components;
+
+@tailwind utilities;
+	</style>
  </head>
  <body class="bg-slate-900">

@@ -33,11 +33,13 @@ const Guild = new Schema({
 		system: {
 			antinsfw: {
 				default: false,
-				type: Boolean
+				type: Boolean,
+				required: true
 			},
 			antilink: {
 				default: false,
-				type: Boolean
+				type: Boolean,
+				required: true
 			}
 		}
   }
