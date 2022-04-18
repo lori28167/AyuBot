@@ -5,10 +5,13 @@
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
   <meta charset="UTF-8"/>
   <title><%=title ? title:"Ayu"%></title>
+	
   <meta name="title" content="<%=title ? title:"Ayu"%>"/>
   <meta name="site_name" content="Ayu website"/>
   <meta name="theme-color" content="#FF7E79"/>
-  <meta name="description" content="<%=title?title:"Ayu é um bot brasileiro multi-funcional, com 2 anos no Discord."%>"/>
+	<%if(!description || description === "") {%><meta name="description" content="Ayu é um bot brasileiro multi-funcional, com 2 anos no Discord."/><%} else {%>
+  <meta name="description" content="<%=description%>"/>
+		<%}%>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="/css/home.css"/>
@@ -23,7 +26,7 @@
       src="https://unpkg.com/@skyra/discord-components-core"
     ></script>
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/css/uikit.min.css" />
-
+    <script src="https://cdn.tailwindcss.com"></script>
 <!-- UIkit JS -->
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.13.7/dist/js/uikit-icons.min.js"></script>
@@ -69,5 +72,11 @@
 
 @tailwind utilities;
 	</style>
+			<script>
+				import withAnimations from "https://cdn.skypack.dev/animated-tailwindcss";
+
+         tailwind.config = withAnimations();
+
+			</script>
  </head>
  <body class="bg-slate-900">

@@ -20,7 +20,7 @@ module.exports.io = io;
 var subdomains = require('express-subdomains')
 const client = require('../index.js')
 const hcaptcha = require('express-hcaptcha');
-
+const crypto = require('crypto');
 io.sockets.on("connection", async socket => {
 	socket.on("welcomeUpdate", async (welcome) => {
 		const guild = await db.guild.findOne({ _id: welcome.guild });
@@ -28,6 +28,11 @@ io.sockets.on("connection", async socket => {
 		guild.config.welcome.message = welcome.message;
 		guild.save();
 		console.log(welcome)
+	})
+	socket.on("guildSettings", async(info) => {
+		const guild = await db.guild.findOne({ _id: info.guild });
+		guild.bio = info.bio;
+		guild.save();
 	})
 	socket.on("leaveUpdate", async (welcome) => {
 		const guild = await db.guild.findOne({ _id: welcome.guild });
@@ -71,6 +76,7 @@ app.use(function(req, res, next) {
 	req.client = client;
 	req.db = db;
 	req.io = io;
+	req.crypto = crypto;
 	next();
 
 })
@@ -131,10 +137,13 @@ app.use(passport.session());
 	
 	next()
 })*/
-app.use("/", require('./route/home.js'));
+// app.use(require('express-spa-router')(app, {ignore:["auth"], staticPaths: ["public"], extraRoutes: ['dashboard', 'settings', 'delivery']}))
+app.use("/", checkSession, require('./route/home.js'));
 app.use("/dashboard", isAuth, require('./route/dashboard.js'));
 app.use("/settings", isAuth, require('./route/settings.js'))
 app.use("/auth", require('./route/lib/authRouter.js'));
+app.use("/delivery", checkSession, require('./route/delivery.js'))
+
 app.use(function(req, res) {
 	res.status(404)
 	res.render("lib/errors/404.ejs", {
@@ -147,7 +156,10 @@ app.use(function(req, res) {
 		req, res, user: req.user, cli: req.client
 	})
 })
-
+function checkSession(req,res,next) {
+	req.session.redirectUrl = req.originalUrl;
+	next();
+}
 function isAuth(req, res, next) {
 	if (req.isAuthenticated()) return next();
 	req.session.redirectUrl = req.originalUrl;

@@ -1,22 +1,24 @@
-
 <div class="sticky top-0 mb-4 border-b border-gray-700 bg-slate-900">
 <ul class="flex flex-wrap justify-center -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
 <li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 active transition-all duration-500" id="geral-tab" data-tabs-target="#geral" type="button" role="tab" aria-controls="geral" aria-selected="true">Geral</button>
+<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 active transition-all duration-500 ease-in-out" id="geral-tab" data-tabs-target="#geral" type="button" role="tab" aria-controls="geral" aria-selected="true">Geral</button>
 </li>
 <li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500" id="setting-tab" data-tabs-target="#setting" type="button" role="tab" aria-controls="setting" aria-selected="false">Configurações</button>
+<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out" id="setting-tab" data-tabs-target="#setting" type="button" role="tab" aria-controls="setting" aria-selected="false">Configurações</button>
 </li>
 <li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500" id="danger-tab" data-tabs-target="#danger" type="button" role="tab" aria-controls="danger" aria-selected="false">Zona perigosa</button>
+<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out" id="danger-tab" data-tabs-target="#danger" type="button" role="tab" aria-controls="danger" aria-selected="false">Zona perigosa</button>
 </li>
 </ul>
 </div>
-<div id="myTabContent">
-<div class="p-4 bg-slate-900 h-[80vh]" id="geral" role="tabpanel" aria-labelledby="geral-tab">
+<div class="transition-all" id="myTabContent">
+<div class="active p-4 bg-slate-900 h-[80vh] duration-700 ease-in-out" id="geral" role="tabpanel" aria-labelledby="geral-tab">
  <%-include('./geral.ejs');%>
 </div>
-<div class="hidden p-4 bg-slate-900 h-[80vh]" id="setting" role="tabpanel" aria-labelledby="setting-tab">
+<div class="hidden p-4 bg-slate-900 h-[80vh] duration-700 ease-in-out" id="setting" role="tabpanel" aria-labelledby="setting-tab">
 	<%-include('./settings.ejs');%>
 </div>
+	<div class="hidden p-4 rounded-lg" id="danger" role="tabpanel" aria-labelledby="danger-tab">
+		<%-include('./danger.ejs');%>
+	</div>
 </div>

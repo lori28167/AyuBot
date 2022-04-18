@@ -1,0 +1,52 @@
+<!Doctype html>
+<html>
+	<%-include('../lib/head.ejs', {title:"Ayu - Delivery", description: "Comidas incrveis da Ayu :yummy:"})%>
+		<div id="page" class="h-full bg-slate-200 text-slate-900 rounded select-none">
+		  <%if(req.isAuthenticated()) {%>
+				<div id="navbar" class="pr-2 pt-4 fixed w-96 lg:w-[95vw]">
+					<img src="<%=req.user.avatar?`https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}.png?size=4096`:`https://cdn.discordapp.com/embed/avatars/${Math.floor(Math.random(0)*5)}.png?size=4096`%>" class="float-right rounded-full h-[36px]" onclick="location.href='/dashboard';"/>
+				</div>
+				<div class="w-[50vh]">
+				<h5 class="pl-4 pt-4 text-zinc-600">Olá <%=req.user.username%>!</h5>
+				<h3 class="pl-4">O que deseja pedir?</h3>
+				</div>
+				<br>
+				<center>
+				 <h3 class="m-3">Cardápio</h3>
+				</center>
+				<h2 class="m-3">
+					Os melhores
+				</h2>
+				<div id="foods" class="flex overflow-x-scroll w-full snap-x overflow-y-hidden">
+					<%food.forEach(f => {%>
+					 <div class="scroll-m-3 snap-center min-w-sm bg-slate-100 rounded-lg border border-gray-200 shadow-md">
+        <img class="rounded-t-lg" src="<%=f.img%>" alt="" />
+    <div class="p-5 text-center">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight"><%=f.name%></h5>
+			      <p class="<%=f.discount?'line-through':''%> text-green-600"><%=f.price%></p>
+			      <%if(f.discount) {%><p class="text-green-700"><%=f.discount%></p><%}%>
+							<br>
+        <a href="/delivery/food/<%=f.foodId%>" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            Olhar
+        </a>
+    </div>
+</div>
+					<%})%>
+				</div>
+			<%} else {%>
+				<div class="flex flex-col justify-center items-center w-full h-full">
+					Parece que você não está logado
+					<button class="bg-[#5865F2] text-white text-center border-none mt-1 p-2 rounded-xl" onclick="window.location.href='/auth/login'">Logar com Discord</button>
+				</div>
+			<%}%>
+		</div>
+		<script>
+			// const page = document.getElementById("page");
+			// const loading = document.getElementById("loading");
+			document.addEventListener("DOMContentLoaded", function(e) { 
+       // loading.style.display = "none"
+       // page.style.display='block '
+      });
+		</script>
+	</body>
+</html>
