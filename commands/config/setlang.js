@@ -9,8 +9,7 @@ module.exports = {
 			option.setName('lang')
 				.setDescription('Linguagem')
 				.setRequired(true)
-				.addChoice('English', 'en-us')
-				.addChoice('Português Brasileiro', 'pt-br')
+				.addChoices({name: 'English', value: 'en-us'},  {name:'Português Brasileiro', value: 'pt-br'})
 										),
 
 	async execute(client, interaction) {
