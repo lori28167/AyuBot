@@ -19,6 +19,7 @@ module.exports = {
 		const lang = client.lang[user.lang]
     user.lang = interaction.options.getString('lang');
 		user.save();
+		if(!["pt-br", "en-us"].includes(interaction.options.getString('lang'))) return interaction.reply("??");
 		interaction.reply(lang.setlang.success.text)
 	},
 
