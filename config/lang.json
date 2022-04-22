@@ -55,5 +55,62 @@
 				"text": "Lingua alterada!"
 			}
 		}
+	},
+        "en-us": {
+		 "ping": {
+			 "text": "Meu ping atual é {ping} MS"
+		 },
+		"help": {
+			"title": ":question: • Ajuda",
+			"description": "Precisa de ajuda? Entre no meu [servidor do Discord](https://discord.gg/BzJn5Je)!\nComandos:",
+			"fields": [{
+				"name": "<:emoji_4:700116823542202378> • Moderação",
+				"value": "`ban,kick,timeout`"
+			}, {
+				"name": "<:emoji_5:700116865116012615> • Diversão",
+				"value": "`bird, cat, dog`"
+			}, {
+				"name": "<:nikkk:739995169671217203> • Economia",
+				"value": "`coins, work`"
+			 }, {
+				"name": "<:emoji_7:700117276434759800> • Configurações",
+				"value": "`dashboard, setlang`"
+			 }, {
+				"name": ":info: • Informações",
+				"value": "`help, info <server>, ping`"
+			 }
+			]
+		},
+		"info": {
+			"server": {
+				"error": {
+					"text": "[Erro] Não achei o servidor em minha database, execute denovo!"
+				},
+				"field": [{"name": "Descrição do servidor", "value": "{description}"}, {
+					"name":"Data criada", "value": "{date}"
+				}]
+			}
+		},
+		"work": {
+			"error": {
+				"text": "Parece que você não foi registrado ainda, tente novamente o comando."
+			},
+			"success": {
+				"text": ":money_with_wings: | Você ganhou ${money}"
+			}
+		},
+		"bal": {
+			"error": {
+				"text": "[ERRO] Usuário não é registrado"
+			},
+			"success": {
+				"text": ":moneybag: | {member} tem ${money}"
+			}
+		},
+		"setlang": {
+			"success": {
+				"text": "Lingua alterada!"
+			}
+		}
 	}
 }
