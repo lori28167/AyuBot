@@ -15,8 +15,6 @@ manager.on('shardCreate', shard => {
     console.log("Deployed shard " + shard.id)
   });
 });
-manager.spawn()
-  .then(shards => {
-    
-  })
-  .catch(console.error);
+manager.spawn({
+	timeout:-1
+});

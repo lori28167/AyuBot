@@ -46,14 +46,6 @@ body {
     color:#dc2626;
     border-color:#dc2626;
     }
-[role="tabpanel"] {
-	opacity:0;
-	transition:all, 0.5s;
-}
-[role="tabpanel"].active {
-	    opacity:1;
-	    transition:all, 0.5s;
-		}
 #loading {
   display: block;
   position: absolute;

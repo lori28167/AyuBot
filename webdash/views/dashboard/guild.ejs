@@ -6,7 +6,7 @@
   <%user.guilds.forEach(g => {
 		if(g.id !== req.params.id) return;
 		const permsOnGuild = new perms(BigInt(g.permissions));
-    if(!permsOnGuild.has("MANAGE_GUILD")) return;%>
+    if(!permsOnGuild.has(["MANAGE_GUILD", "ADMINISTRATOR"])) return;%>
     <%if(guild) {%>
    <br>
     <center>

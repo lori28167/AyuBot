@@ -12,13 +12,14 @@ const flash = require('connect-flash');
 const cors = require('cors')
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-var listen = Math.floor(Math.random(1000) * 9999)
-http.listen(listen)
-console.log(listen)
+//var cors = require('cors')
 module.exports.io = io;
 // const { token } = require('./config/config');
 var subdomains = require('express-subdomains')
 const client = require('../index.js')
+const listen = client.listen;
+http.listen(listen)
+console.log(listen)
 const hcaptcha = require('express-hcaptcha');
 const crypto = require('crypto');
 io.sockets.on("connection", async socket => {
@@ -29,7 +30,7 @@ io.sockets.on("connection", async socket => {
 		guild.save();
 		console.log(welcome)
 	})
-	socket.on("guildSettings", async(info) => {
+	socket.on("guildSettings", async (info) => {
 		const guild = await db.guild.findOne({ _id: info.guild });
 		guild.bio = info.bio;
 		guild.save();
@@ -97,7 +98,7 @@ passport.deserializeUser(function(obj, done) {
 });
 
 var scopes = ['identify', 'guilds'];
-var prompt = 'none';
+var prompt = 'conset';
 
 var dcstrat = new Strategy({
 	clientID: process.env.id,
@@ -106,6 +107,7 @@ var dcstrat = new Strategy({
 	scope: scopes,
 	prompt: prompt
 }, function(accessToken, refreshToken, profile, done) {
+	profile.accessToken = accessToken;
 	profile.refreshToken = refreshToken;
 	process.nextTick(function() {
 		return done(null, profile);
@@ -121,13 +123,18 @@ cookie: {
 						},
 }
 */
+const MongoStore = require('connect-mongo');
+
 app.use(session({
 	secret: process.env.secretCookie,
 	resave: true,
 	cookie: {
 		maxAge: 60000 * 60 * 24
 	},
-	saveUninitialized: false
+	saveUninitialized: false,
+	store: MongoStore.create({
+    mongoUrl: process.env.db
+  })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -137,12 +144,14 @@ app.use(passport.session());
 	
 	next()
 })*/
-// app.use(require('express-spa-router')(app, {ignore:["auth"], staticPaths: ["public"], extraRoutes: ['dashboard', 'settings', 'delivery']}))
+
 app.use("/", checkSession, require('./route/home.js'));
 app.use("/dashboard", isAuth, require('./route/dashboard.js'));
 app.use("/settings", isAuth, require('./route/settings.js'))
 app.use("/auth", require('./route/lib/authRouter.js'));
 app.use("/delivery", checkSession, require('./route/delivery.js'))
+
+// app.use(require('express-spa-router')(app, {ignore: ["/dashboard", "/settings", "/"]}))
 
 app.use(function(req, res) {
 	res.status(404)
@@ -156,7 +165,7 @@ app.use(function(req, res) {
 		req, res, user: req.user, cli: req.client
 	})
 })
-function checkSession(req,res,next) {
+function checkSession(req, res, next) {
 	req.session.redirectUrl = req.originalUrl;
 	next();
 }

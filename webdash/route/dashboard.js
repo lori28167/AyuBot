@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/guild/:id", async (req, res) => {
+	const guilds = await req.client.shard.fetchClientValues('guilds.cache')
 	if (req.client.guilds.cache.get(req.params.id)) {
 		const guild = await req.db.guild.findOne({ _id: req.params.id });
 

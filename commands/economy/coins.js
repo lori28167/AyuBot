@@ -11,9 +11,11 @@ module.exports = {
       const member = interaction.options.getMember("user") || interaction.member;
       //console.log(member )
       client.db.user.findOne({_id:member.id}, function(e,d) {
-        if(!d) return interaction.reply({ content: "[ERRO] Usuário não é registrado", ephemeral: true});
+				var lang = client.lang[d.lang];
+        if(!d) return interaction.reply({ content: lang.bal.error.text, ephemeral: true});
         var coins = d.economy.coins;
-        interaction.reply({ content: `:moneybag: | ${member} tem $${coins}`,ephemeral: true})
+				var money = lang.bal.success.text.replace("{member}", member.user.tag).replace("{money}", coins)
+        interaction.reply({ content: money,ephemeral: true})
       });
     },
     

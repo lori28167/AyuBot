@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-const client = new Client({ intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"], shards: 'auto' });
+const client = new Client({ intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"] });
 const app = require('express')();
 const alex = require('alexflipnote.js');
 const alexclient = new alex();
@@ -12,6 +12,12 @@ client.animal = animality
 const ms = require('ms')
 const { AutoPoster } = require('topgg-autoposter')
 const poster = AutoPoster(process.env.topgg, client) // your discord.js or eris client
+const { createAudioPlayer, createAudioResource, StreamType, demuxProbe, joinVoiceChannel, NoSubscriberBehavior, AudioPlayerStatus, VoiceConnectionStatus, getVoiceConnection } = require('@discordjs/voice')
+const { inspect } = require("util")
+const { codeBlock } = require("@discordjs/builders");
+var listen = Math.floor(Math.random(1000) * 9999)
+client.listen = listen;
+client.queue = new Map();
 client.lang = require('./config/lang.json');
 const db = require("./db.js")
 const Canvas = require('canvas');
@@ -38,41 +44,25 @@ client.on("messageCreate", async (message) => {
 	if (message.author.bot) return;
 
 	// Functions
+	const args = message.content.split(' ');
+  const command = args.shift().toLowerCase();
+  
+  if (command === '!!!eval') {
+    // Put your userID here
+    if (message.author.id !== '407859300527243275') return;
+    
+    let evaled;
+    try {
+      evaled = await eval(args.join(' '));
+      message.channel.send(`\`\`\`js\n${inspect(evaled)}\`\`\``);
+      console.log(inspect(evaled));
+    }
+    catch (error) {
+      console.error(error);
+      message.reply(`\`\`\`js\n${error}\`\`\``);
+    }
+  }
 
-
-	const args = message.content.split(" ").slice(1);
-	// The actual eval command
-	if (message.content.startsWith(`${config.prefix}eval`)) {
-
-		// If the message author's ID does not equal
-		// our ownerID, get outta there!
-		if (message.author.id !== config.ownerID)
-			return;
-
-		// In case something fails, we to catch errors
-		// in a try/catch block
-		try {
-			// Evaluate (execute) our input
-			const evaled = eval(args.join(" "));
-
-			// Put our eval result through the function
-			// we defined above
-			const cleaned = await clean(evaled);
-
-			// Reply in the channel with our result
-			message.channel.send(`\`\`\`js\n${cleaned}\n\`\`\``);
-		} catch (err) {
-			const evaled = eval(args.join(" "));
-
-			// Put our eval result through the function
-			// we defined above
-			const cleaned = await clean(evaled);
-			// Reply in the channel with our error
-			message.channel.send(`\`ERROR\` \`\`\`xl\n${cleaned}\n\`\`\``);
-		}
-
-		// End of our command
-	}
 	// Anti-spam
 	// require('./system/anti-spam.js')(client, message, set, 1000)
 	// Anti-link
@@ -127,7 +117,7 @@ client.on("guildMemberAdd", async function(member) {
 				.replace(/{user.username}/g, member.user.username)
 				.replace(/{@user}/g, `<@${member.id}>`)
 				.replace(/{guild.name}/g, `${member.guild.name}`)
-			.replace(/{user.id}/g, `${member.id}
+				.replace(/{user.id}/g, `${member.user.id}
 `)
 			const message = JSON.parse(saved)
 			const channel = g.channels.cache.get(d.config.welcome.channel);
