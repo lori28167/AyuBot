@@ -141,7 +141,7 @@
        "info": {
            "server": {
                "error": {
-                   "text": "[Error] I couldn't find the server in my database, run it again!"
+                   "text": "[Error] Non risco a trovare il server nel database, usalo di nuovo!"
                },
                "field": [{"name": "Descrizione Server", "value": "{description}"}, {
                    "name":"Data Creata", "value": "{date}"
