@@ -11,7 +11,7 @@ module.exports = {
       if (interaction.options.getSubcommand() === 'server') {
         const guild = await client.db.guild.findOne({_id:interaction.guild.id});
 				const user = await client.db.user.findOne({_id: interaction.user.id});
-        const lang = client.lang[user.lang];
+        const lang = client.lang(user.lang);
 				const g = client.guilds.cache.get(guild._id)
         if(!guild) return interaction.reply(lang.info.server.error.text);
         const embed = new MessageEmbed()

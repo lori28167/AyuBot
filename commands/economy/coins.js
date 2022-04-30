@@ -11,7 +11,7 @@ module.exports = {
       const member = interaction.options.getMember("user") || interaction.member;
       //console.log(member )
       client.db.user.findOne({_id:member.id}, function(e,d) {
-				var lang = client.lang[d.lang];
+				var lang = client.lang(d.lang);
         if(!d) return interaction.reply({ content: lang.bal.error.text, ephemeral: true});
         var coins = d.economy.coins;
 				var money = lang.bal.success.text.replace("{member}", member.user.tag).replace("{money}", coins)

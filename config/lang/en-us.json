@@ -1,0 +1,57 @@
+{
+		 "ping": {
+			 "text": "My current ping is {ping} MS"
+		 },
+		"help": {
+			"title": ":question: • Help",
+			"description": "Need help? Join my [Discord server](https://discord.gg/BzJn5Je)!\nCommands:",
+			"fields": [{
+				"name": "<:emoji_4:700116823542202378> • Moderation",
+				"value": "`ban,kick,timeout`"
+			}, {
+				"name": "<:emoji_5:700116865116012615> • Fun",
+				"value": "`bird, cat, dog`"
+			}, {
+				"name": "<:nikki:739995169671217203> • Economy",
+				"value": "`coins, work`"
+			 }, {
+				"name": "<:emoji_7:700117276434759800> • Settings",
+				"value": "`dashboard, setlang`"
+			 }, {
+				"name": ":info: • Information",
+				"value": "`help, info <server>, ping`"
+			 }
+			]
+		},
+		"info": {
+			"server": {
+				"error": {
+					"text": "[Error] I couldn't find the server in my database, run it again!"
+				},
+				"field": [{"name": "Server Description", "value": "{description}"}, {
+					"name":"Date created", "value": "{date}"
+				}]
+			}
+		},
+		"work": {
+			"error": {
+				"text": "It looks like you haven't registered yet, try the command again."
+			},
+			"success": {
+				"text": ":money_with_wings: | You won ${money}"
+			}
+		},
+		"bal": {
+			"error": {
+				"text": "[ERROR] User is not registered"
+			},
+			"success": {
+				"text": ":moneybag: | {member} has ${money}"
+			}
+		},
+		"setlang": {
+			"success": {
+				"text": "Language changed!"
+            }
+		}
+	}

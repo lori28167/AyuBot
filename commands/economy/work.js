@@ -8,7 +8,7 @@ module.exports = {
     
     async execute(client,interaction) {
 			const user = await client.db.user.findOne({_id: interaction.user.id});
-			const lang = client.lang[user.lang]
+			const lang = client.lang(user.lang)
         client.db.user.findOne({_id: interaction.member.id}, function(e,d) {
 				  
           if(!d) return interaction.reply(lang.work.error.text);

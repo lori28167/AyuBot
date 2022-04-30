@@ -20,7 +20,7 @@ client.listen = listen;
 client.queue = new Map();
 // client.lang = require('./config/lang.json');
 client.lang = function(lang) {
-	return require ('./config/lang/' + lang + ".json")
+	return require('./config/lang/' + lang + ".json")
 }
 const db = require("./db.js")
 const Canvas = require('canvas');
