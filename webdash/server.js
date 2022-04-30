@@ -19,7 +19,7 @@ module.exports.io = io;
 const client = require('../index.js')
 const listen = client.listen;
 http.listen(3000)
-console.log(listen)
+// console.log(listen)
 const hcaptcha = require('express-hcaptcha');
 const crypto = require('crypto');
 require('./socket.io.js')(io, client, db);

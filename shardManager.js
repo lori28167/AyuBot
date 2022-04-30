@@ -10,7 +10,6 @@ const manager = new ShardingManager('./index.js', {
 manager.on('shardCreate', shard => {
   shard.on("ready", () => {
     console.log(`[DEBUG/SHARD] Shard ${shard.id} connected to Discord's Gateway.`)
-		require('./webdash/server')
     shard.send({ type: "shardId", data: { shardId: shard.id } });
     console.log("Deployed shard " + shard.id)
   });

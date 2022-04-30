@@ -18,7 +18,10 @@ const { codeBlock } = require("@discordjs/builders");
 var listen = Math.floor(Math.random(1000) * 9999)
 client.listen = listen;
 client.queue = new Map();
-client.lang = require('./config/lang.json');
+// client.lang = require('./config/lang.json');
+client.lang = function(lang) {
+	return require ('./config/lang/' + lang + ".json")
+}
 const db = require("./db.js")
 const Canvas = require('canvas');
 client.Canvas = Canvas;
@@ -93,7 +96,7 @@ client.once('ready', () => {
 client.on("debug", (debug) => {
 	//console.log(debug)
 })
-// require('./webdash/server')
+require('./webdash/server')
 const cmd_folders = fs.readdirSync('./commands');
 for (const f of cmd_folders) {
 

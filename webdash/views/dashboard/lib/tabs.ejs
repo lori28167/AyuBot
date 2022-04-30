@@ -1,76 +1,71 @@
-<nav class="fixed w-full portrait:top-0 landscape:bottom-0 border-b border-gray-700 bg-slate-900/30 backdrop-blur-sm transition-all">
-	<div class="tabs">
-	<ul
-		class="overflow-y-scroll flex flex-wrap justify-center -mb-px"
-		id="myTab"
-		data-tabs-toggle="#myTabContent"
-		role="tablist"
+<div class="flex w-full h-full">
+	<aside
+		id="sidebar"
+		class="block w-full lg:w-64 h-full transition-all"
+		aria-label="Sidebar"
+		aria-expanded="true"
 	>
-		<li class="mr-2" role="presentation">
-		
-			<button
-				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 active transition-all duration-500 ease-in-out"
-				id="geral-tab"
-				data-tabs-target="#geral"
-				type="button"
-				role="tab"
-				for="r1"
-				aria-controls="geral"
-				aria-selected="true"
+		<div class="overflow-y-hidden py-4 px-3 bg-gray-800 rounded h-full">
+			<a href=".." class="flex items-center pl-2.5 mb-5">
+				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><%=g.name%></span>
+			</a>
+			<ul
+				class="space-y-2"
+				id="myTab"
+		    data-tabs-toggle="#myTabContent"
+		    role="tablist"
 			>
-				Geral
-			</button>
-		</li>
-		<li
-			class="mr-2"
-			id="setting-tab"
-			data-tabs-target="#setting"
-			type="button"
-			role="tab"
-			aria-controls="setting"
-			aria-selected="false"
-			role="presentation"
-		>
-			<button
-				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out"
-				id="setting-tab"
-				data-tabs-target="#setting"
-				type="button"
-				role="tab"
-				aria-controls="setting"
-				aria-selected="false"
-				for="r2"
-			>
-				Configurações
-			</button>
-		</li>
-		<li class="mr-2" role="presentation">
-			 <button
-				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out"
-				id="danger-tab"
-				data-tabs-target="#danger"
-				type="button"
-				role="tab"
-				aria-controls="danger"
-				aria-selected="false"
-				for="r3"
-			>
-			  Zona perigosa
-			 </button>
-		</li>
-		<div id='slider'></div>
-	 </ul>
-	</div>
-</nav>
-<div class="portrait:translate-y-10 transition-all duration-500 portrait:delay-300 ease-in-out" id="myTabContent">
-	<%-include('./toast.ejs')%>
-<div class="p-4 bg-slate-900 transition-all" id="geral" role="tabpanel" aria-labelledby="geral-tab">
- <%-include('./sistemas.ejs');%>
-</div>
-<div class="hidden p-4 bg-slate-900 h-[80vh] transition-all" id="setting" role="tabpanel" aria-labelledby="setting-tab">
-	<%-include('./settings.ejs');%>
-</div>
-	<div class="hidden p-4 rounded-lg bg-slate-900 h-[80vh] transition-all" id="danger" role="tabpanel" aria-labelledby="danger-tab">
-		<%-include('./danger.ejs');%>
+				<li role="presentation">
+					<button
+						class="flex items-center p-2 text-base font-normal text-white  rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 w-full transition-all"
+						id="geral-tab"
+						data-tabs-target="#geral"
+						type="button"
+						role="tab"
+						for="r1"
+						aria-controls="geral"
+						aria-selected="true"
+					>
+						<span class="ml-3">Geral</span>
+					</button>
+				</li>
+				<li role="presentation">
+					<button
+						class="flex items-center p-2 text-base font-normal text-white  rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 w-full transition-all"
+						id="settings-tab"
+						data-tabs-target="#settings"
+						type="button"
+						role="tab"
+						for="r2"
+						aria-controls="settings"
+						aria-selected="false"
+					>
+						<span class="ml-3">Configurações</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+	</aside>
+
+	<div
+		id="myTabContent"
+		class="w-full h-full overflow-x-hidden overflow-y-scroll p-[8px] ml-2"
+	>
+		<button
+		data-collapse-toggle="sidebar"
+		data-collapse-toggle="myTab"
+		aria-label="Sidebar"
+		class="flex block lg:hidden w-[32px] h-[32px] "
+	>
+		<i data-feather="align-left"></i>
+	</button>
+		<br>
+		<div class="hidden bg-slate-900 transition-all" id="geral" role="tabpanel" aria-labelledby="geral-tab">
+		  Manutenção
+		</div>
+		<div class="hidden bg-slate-900 transition-all" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+		  Teste
+		</div>
 	</div>
 </div>
+<script>feather.replace();</script>
