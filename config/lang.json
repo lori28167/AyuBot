@@ -110,7 +110,64 @@
 		"setlang": {
 			"success": {
 				"text": "Language changed!"
-			}
+            }
+		}
+	},
+    "it-it": {
+        "ping": {
+            "text": "Il mio ping è {ping} MS"
+        },
+       "help": {
+           "title": ":question: • Aiuto",
+           "description": "Bisogno di aiuto? Entra nel mio [Server Discord](https://discord.gg/BzJn5Je)!\nCommandi:",
+           "fields": [{
+               "name": "<:emoji_4:700116823542202378> • Moderation",
+               "value": "`ban,kick,timeout`"
+           }, {
+               "name": "<:emoji_5:700116865116012615> • Fun",
+               "value": "`bird, cat, dog`"
+           }, {
+               "name": "<:nikki:739995169671217203> • Economy",
+               "value": "`coins, work`"
+            }, {
+               "name": "<:emoji_7:700117276434759800> • Settings",
+               "value": "`dashboard, setlang`"
+            }, {
+               "name": ":info: • Informazioni",
+               "value": "`help, info <server>, ping`"
+            }
+           ]
+       },
+       "info": {
+           "server": {
+               "error": {
+                   "text": "[Error] I couldn't find the server in my database, run it again!"
+               },
+               "field": [{"name": "Descrizione Server", "value": "{description}"}, {
+                   "name":"Data Creata", "value": "{date}"
+               }]
+           }
+       },
+       "work": {
+           "error": {
+               "text": "Sembrerebbe che non ti sei ancora registrato, prova il comando dopo."
+           },
+           "success": {
+               "text": ":money_with_wings: | Hai vinto ${money}"
+           }
+       },
+       "bal": {
+           "error": {
+               "text": "[ERRORE] L'utente non registrato"
+           },
+           "success": {
+               "text": ":moneybag: | {member} ha ${money}"
+           }
+       },
+       "setlang": {
+           "success": {
+               "text": "Lingua Cambiata!"
+            }
 		}
 	}
 }
