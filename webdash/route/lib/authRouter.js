@@ -16,7 +16,7 @@ router.get("/login", passport.authenticate('discord', { prompt: "consent" }), fu
 router.get("/login/bot", function(req, res) {
 	passport.authenticate('discord', { disable_guild_select: true, guild_id: req.query.guild_id, scope: ["identify", "guilds", "bot"] })
 
-	res.redirect("https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=8&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds&guild_id="+req.query.guild_id)
+	res.redirect("https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=8&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds%20applications.commands&guild_id="+req.query.guild_id)
 });
 router.get('/callback', passport.authenticate('discord', { failureRedirect: '/' }), function(req, res, next) {
 	var redirectTo = '/dashboard';

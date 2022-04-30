@@ -53,5 +53,19 @@
 			"success": {
 				"text": "Lingua alterada!"
 			}
+		},
+	  "ban": {
+			"success": {
+				"text": ":name_badge:  | {member} foi banido com sucesso!"
+			},
+			"error": {
+			  "permissions": {
+					"text": "[ERRO] Você não pode usar esse comando apenas ADMINs e usuarios com permissão ``BAN_MEMBERS``!",
+					"text2": "[ERRO] Eu não posso executar esse comando pois não tenho permissão ``BAN_MEMBERS``!"
+				},
+				"text": "Não posso te banir",
+				"text2": "[ERRO] Não consegui achar o usuário, verifique se está tudo correto.",
+				"text3": "[ERRO] Não consegui banir o usuário"
+			}
 		}
 	}

@@ -13,17 +13,19 @@ module.exports = {
     if (interaction.options.getSubcommand() === "add") {
       const member = interaction.options.getMember('user');
       const user = interaction.member;
-      if (!user.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: `[ERRO] Você não pode usar esse comando apenas ADMINs e usuarios com permissão \`\`BAN_MEMBERS\`\`!`, ephemeral: true });
-      if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: `[ERRO] Eu não posso executar esse comando pois não tenho permissão \`\`BAN_MEMBERS\`\`!`, ephemeral: true });
-      if (user.id === member.id) return message.reply("Não posso te banir");
+			const use = await client.db.user.findOne({_id: interaction.user.id});
+      const lang = client.lang(use.lang);
+      if (!user.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: lang.ban.error.permissions.text, ephemeral: true });
+      if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.reply({ content: lang.ban.error.permissions.text2, ephemeral: true });
+      // if (member.id === user.id) return interaction.reply(lang.ban.error.text);
       const motivo = interaction.options.getString("motivo");
       var text = motivo;
-      if (!member) return interaction.reply("[ERRO] Não consegui achar o usuário, verifique se está tudo correto.", { ephemeral: true });
+      if (!member) return interaction.reply(lang.ban.error.text2, { ephemeral: true });
       if (!motivo) text = "Sem motivo algum";
       member.ban({ reason: text }).then(user => {
-        interaction.reply(`:name_badge:  | ${member.user.username} foi banido com sucesso!`);
+        interaction.reply(lang.ban.success.text.replace("{member}", member.user.username));
       }).catch(err => {
-        interaction.reply("[ERRO] Não consegui banir o usuário")
+        interaction.reply(lang.ban.error.text3)
       })
     } else if (interaction.options.getSubcommand() === "remove") {
       interaction.reply("Em breve")
