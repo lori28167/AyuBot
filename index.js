@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config/config');
-const client = new Client({ intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES"] });
+const client = new Client({ intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES", "GUILD_VOICE_STATES", "GUILD_PRESENCES"] });
 const app = require('express')();
 const alex = require('alexflipnote.js');
 const alexclient = new alex();
@@ -22,6 +22,7 @@ client.lang = require('./config/lang.json');
 const db = require("./db.js")
 const Canvas = require('canvas');
 client.Canvas = Canvas;
+const Jimp = require('jimp');
 // optional
 poster.on('posted', (stats) => { // ran when succesfully posted
 	console.log(`Posted stats to Top.gg | ${stats.serverCount} servers`)
@@ -33,7 +34,7 @@ bot.on("ready", () => {
 	console.log("Heartbeat online")
 
 })
-client.on("debug", console.log)
+// client.on("debug", console.log)
 const config = {
 	prefix: "!",
 	ownerID: "407859300527243275"
@@ -92,7 +93,7 @@ client.once('ready', () => {
 client.on("debug", (debug) => {
 	//console.log(debug)
 })
-require('./webdash/server')
+// require('./webdash/server')
 const cmd_folders = fs.readdirSync('./commands');
 for (const f of cmd_folders) {
 
@@ -217,5 +218,10 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+process.on('uncaughtException', function(err) {
+  
+    // Handle the error safely
+    console.log(err)
+})
 
 client.login(process.env.token);

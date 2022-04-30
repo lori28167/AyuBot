@@ -1,4 +1,4 @@
-var express = require('express')
+ var express = require('express')
 	, session = require('express-session')
 	, router = express.Router()
 	, app = express()
@@ -15,59 +15,14 @@ var io = require('socket.io')(http);
 //var cors = require('cors')
 module.exports.io = io;
 // const { token } = require('./config/config');
-var subdomains = require('express-subdomains')
+
 const client = require('../index.js')
 const listen = client.listen;
-http.listen(listen)
+http.listen(3000)
 console.log(listen)
 const hcaptcha = require('express-hcaptcha');
 const crypto = require('crypto');
-io.sockets.on("connection", async socket => {
-	socket.on("welcomeUpdate", async (welcome) => {
-		const guild = await db.guild.findOne({ _id: welcome.guild });
-		guild.config.welcome.channel = welcome.channel;
-		guild.config.welcome.message = welcome.message;
-		guild.save();
-		console.log(welcome)
-	})
-	socket.on("guildSettings", async (info) => {
-		const guild = await db.guild.findOne({ _id: info.guild });
-		guild.bio = info.bio;
-		guild.save();
-	})
-	socket.on("leaveUpdate", async (welcome) => {
-		const guild = await db.guild.findOne({ _id: welcome.guild });
-		guild.config.bye.channel = welcome.channel;
-		guild.config.bye.message = welcome.message;
-		guild.save();
-		console.log(welcome)
-	})
-	console.log("[Socket] Connected");
-
-	const memberCount = await client.shard
-		.broadcastEval(c => c.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0))
-	const guildCount = client.guilds.cache.size;
-
-	socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-	setInterval(() => {
-		socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-		// console.log("Updated");
-	}, 1000)
-	client.on("guildMemberAdd", (member) => {
-		socket.emit("memberGuildUpdate", { members: member.guild.memberCount, guild: member.guild });
-		socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-	})
-	client.on("guildMemberRemove", (member) => {
-		socket.emit("memberGuildUpdate", { members: member.guild.memberCount, guild: member.guild });
-		socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-	})
-	client.on("guildCreate", () => {
-		socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-	})
-	client.on("guildDelete", () => {
-		socket.emit("guildUpdate", { guildCount: guildCount, userCount: memberCount, ping: client.ws.ping });
-	})
-})
+require('./socket.io.js')(io, client, db);
 //client.login(process.env.token)
 client.on("ready", () => {
 
@@ -144,6 +99,8 @@ app.use(passport.session());
 	
 	next()
 })*/
+var subdomains = require('express-subdomain')
+app.use(subdomains('api', require("./route/dashboard.js")));
 
 app.use("/", checkSession, require('./route/home.js'));
 app.use("/dashboard", isAuth, require('./route/dashboard.js'));
@@ -169,10 +126,12 @@ function checkSession(req, res, next) {
 	req.session.redirectUrl = req.originalUrl;
 	next();
 }
+
 function isAuth(req, res, next) {
-	if (req.isAuthenticated()) return next();
-	req.session.redirectUrl = req.originalUrl;
-	//req.session.redirectTo = req.originalUrl;
-	res.redirect("/auth/login");
+	if (req.isAuthenticated()) {
+		return next();
+	}
+	req.session.reqUrl = req.originalUrl; //Create session value with requested url
+	res.redirect('/auth/login');
 }
 //app.listen(3000);

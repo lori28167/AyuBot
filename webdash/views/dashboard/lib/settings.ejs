@@ -15,17 +15,21 @@
 	// const socket = io();
 	const btn = document.getElementById("bioButton");
 	btn.onclick = (e) => {
-		btn.classList.add = "animate-pulse"
+		btn.classList.toggle("animate-pulse")
 	}
+	// const toast = document.getElementById("toast-success")
 	const form = document.getElementById("settings");
 	const message = document.getElementById("message")
 	form.onsubmit = (e) => {
 		socket.emit("guildSettings", {bio: message.value, guild: "<%=g.id%>"})
-		btn.classList.remove = "animate-pulse"
+		btn.classList.toggle("animate-pulse")
+		toast.classList.toggle("opacity-0")
 		btn.innerHTML = "Salvo!"
 		setTimeout(() => {
+			toast.classList.toggle("opacity-0")
 			btn.innerHTML = "Salvar mudanças"
-		}, 1000)
-	}
+		}, 2000)
+			}
+	
 </script>
 </div>

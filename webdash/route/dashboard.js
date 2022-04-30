@@ -14,16 +14,12 @@ router.get("/", async (req, res) => {
 })
 
 router.get("/guild/:id", async (req, res) => {
-	const guilds = await req.client.shard.fetchClientValues('guilds.cache')
-	if (req.client.guilds.cache.get(req.params.id)) {
+	const guilds = await req.client.guilds.cache.get(req.params.id)
 		const guild = await req.db.guild.findOne({ _id: req.params.id });
 
 		res.render("dashboard/guild.ejs", {
-			req, res, user: req.user, message: req.flash('message'), cli: req.client, guild, hctoken: process.env.hcaptcha, perms: Permissions
+			req, res, user: req.user, message: req.flash('message'), cli: req.client, guild, hctoken: process.env.hcaptcha, perms: Permissions, guilds
 		})
-	} else {
-		res.redirect(`https://discord.com/api/oauth2/authorize?client_id=699016235228201010&permissions=1099512146022&redirect_uri=https%3A%2F%2Fayubot.tech%2Fauth%2Fcallback&response_type=code&scope=bot%20identify%20guilds%20applications.commands&guild_id=${req.params.id}&disable_guild_select=true`)
-	}
 })
 
 router.post("/guild/:id/settings", async (req, res, next) => {

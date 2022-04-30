@@ -11,4 +11,11 @@ router.get("/", (req, res) => {
 	})
 })
 
+router.post("/", (req, res) => {
+	//console.log(req.client.user)
+	res.render("index.ejs", {
+		req, res, user: req.user, cli: req.client, message: req.flash('message')
+	})
+})
+
 module.exports = router;

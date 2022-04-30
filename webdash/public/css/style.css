@@ -56,23 +56,6 @@ body {
   height: 100vh;
 }
 
-#slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0px;
-  height: 0px;
-  background: transparent;
-  cursor: pointer;
-  display: none;
-}
-
-#slider::-moz-range-thumb {
-  display: none;
-  width: 0px;
-  height: 0px;
-  background:transparent;
-  cursor: pointer;
-}
 #box {
   animation-name: translate;
   animation-duration: 500ms;

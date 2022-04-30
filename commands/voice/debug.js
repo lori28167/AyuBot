@@ -22,12 +22,15 @@ module.exports = {
 					}, {
 						name: "Limite de usuários",
 						value: voice.userLimit?voice.userLimit:"Nenhum limite"
-					}, {
-						name: "Permissões",
-						value: `\`\`\`${interaction.guild.channels.cache.get(voice.id).permissions.toArray()}\`\`\``
 					}]
 				}]
 			})
+			/**
+      {
+						name: "Permissões",
+						value: `\`\`\`${interaction.guild.channels.cache.get(voice.id).permissions.toArray()}\`\`\``
+					}
+     */
 		}
 	},
 

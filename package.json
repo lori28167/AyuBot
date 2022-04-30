@@ -64,6 +64,7 @@
     "express-hcaptcha": "0.0.3",
     "express-session": "^1.17.2",
     "express-spa-router": "^0.0.8",
+    "express-subdomain": "^1.0.5",
     "express-subdomains": "0.0.5",
     "ffmpeg": "^0.0.4",
     "ffmpeg-static": "^5.0.0",
@@ -184,7 +185,8 @@
   },
   "scripts": {
     "start": "node .",
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "deploy": "node commands.js"
   },
   "repository": {
     "type": "git",

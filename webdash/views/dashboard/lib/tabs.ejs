@@ -1,26 +1,76 @@
-<div class="sticky top-0 mb-4 border-b border-gray-700 bg-slate-900">
-	<div class=""></div>
-<ul class="flex flex-wrap justify-center -mb-px" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-
-<li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 active transition-all duration-500 ease-in-out" id="geral-tab" data-tabs-target="#geral" type="button" role="tab" aria-controls="geral" aria-selected="true">Geral</button>
-</li>
-<li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out" id="setting-tab" data-tabs-target="#setting" type="button" role="tab" aria-controls="setting" aria-selected="false">Configurações</button>
-</li>
-<li class="mr-2" role="presentation">
-<button class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 rounded-t-lg border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out" id="danger-tab" data-tabs-target="#danger" type="button" role="tab" aria-controls="danger" aria-selected="false">Zona perigosa</button>
-</li>
-</ul>
+<nav class="fixed w-full portrait:top-0 landscape:bottom-0 border-b border-gray-700 bg-slate-900/30 backdrop-blur-sm transition-all">
+	<div class="tabs">
+	<ul
+		class="overflow-y-scroll flex flex-wrap justify-center -mb-px"
+		id="myTab"
+		data-tabs-toggle="#myTabContent"
+		role="tablist"
+	>
+		<li class="mr-2" role="presentation">
+		
+			<button
+				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 active transition-all duration-500 ease-in-out"
+				id="geral-tab"
+				data-tabs-target="#geral"
+				type="button"
+				role="tab"
+				for="r1"
+				aria-controls="geral"
+				aria-selected="true"
+			>
+				Geral
+			</button>
+		</li>
+		<li
+			class="mr-2"
+			id="setting-tab"
+			data-tabs-target="#setting"
+			type="button"
+			role="tab"
+			aria-controls="setting"
+			aria-selected="false"
+			role="presentation"
+		>
+			<button
+				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out"
+				id="setting-tab"
+				data-tabs-target="#setting"
+				type="button"
+				role="tab"
+				aria-controls="setting"
+				aria-selected="false"
+				for="r2"
+			>
+				Configurações
+			</button>
+		</li>
+		<li class="mr-2" role="presentation">
+			 <button
+				class="inline-block py-4 px-4 text-sm font-medium text-center text-gray-400 bg-inherit rounded-t-lg border-transparent hover:text-gray-300 hover:border-gray-300 transition-all duration-500 ease-in-out"
+				id="danger-tab"
+				data-tabs-target="#danger"
+				type="button"
+				role="tab"
+				aria-controls="danger"
+				aria-selected="false"
+				for="r3"
+			>
+			  Zona perigosa
+			 </button>
+		</li>
+		<div id='slider'></div>
+	 </ul>
+	</div>
+</nav>
+<div class="portrait:translate-y-10 transition-all duration-500 portrait:delay-300 ease-in-out" id="myTabContent">
+	<%-include('./toast.ejs')%>
+<div class="p-4 bg-slate-900 transition-all" id="geral" role="tabpanel" aria-labelledby="geral-tab">
+ <%-include('./sistemas.ejs');%>
 </div>
-<div id="myTabContent">
-<div class="p-4 bg-slate-900 h-[80vh]" id="geral" role="tabpanel" aria-labelledby="geral-tab">
- <%-include('./geral.ejs');%>
-</div>
-<div class="hidden p-4 bg-slate-900 h-[80vh]" id="setting" role="tabpanel" aria-labelledby="setting-tab">
+<div class="hidden p-4 bg-slate-900 h-[80vh] transition-all" id="setting" role="tabpanel" aria-labelledby="setting-tab">
 	<%-include('./settings.ejs');%>
 </div>
-	<div class="hidden p-4 rounded-lg h-[80vh]" id="danger" role="tabpanel" aria-labelledby="danger-tab">
+	<div class="hidden p-4 rounded-lg bg-slate-900 h-[80vh] transition-all" id="danger" role="tabpanel" aria-labelledby="danger-tab">
 		<%-include('./danger.ejs');%>
 	</div>
 </div>

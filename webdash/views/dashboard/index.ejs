@@ -3,18 +3,21 @@
  <%-include('../lib/head.ejs', {title: "Ayu - Dashboard", description: ""})%>
  <div class="bg-slate-900 m-0 p-0">
   <%-include('../lib/nav.ejs')%>
+		<center>
+			<h1 class="pt-6 text-white">Seu servidores</h1>
+		</center>
 		<div class="grid grid-cols-1 lg:grid-cols-3 content-center justify-items-center ">
     <%user.guilds.forEach(g => {
 			const permsOnGuild = new perms(BigInt(g.permissions));
-      if(!permsOnGuild.has(["MANAGE_GUILD", "ADMINISTRATOR"])) return;%>
+      if(!permsOnGuild.has(["MANAGE_GUILD"])) return;%>
 			<%if(g.icon) {%>
-				<div class="flex flex-col justify-center items-center w-64 h-32 m-4 rounded-lg <%=req.client.guilds.cache.get(g.id)?'bg-slate-700':'bg-slate-800 '%> shadow-md hover:shadow-lg hover:-translate-y-2 transition-all " onclick="location.href='/dashboard/guild/<%=g.id%>';">
+				<div class="flex flex-col justify-center items-center w-64 h-32 m-4 rounded-lg <%=req.client.guilds.cache.get(g.id)?'bg-slate-700':'bg-slate-800 '%> shadow-md hover:shadow-lg hover:-translate-y-2 transition-all cursor-pointer" onclick="location.href='/dashboard/guild/<%=g.id%>';">
 					<img class="w-[70px] rounded-full mb-2" src="https://cdn.discordapp.com/icons/<%=g.id%>/<%=g.icon%>?size=4096"/>
 					<p class=""><%=g.name%></p>
-					
+					<p><%=req.client.guilds.cache.get(g.id).shardId%></p>
 				</div>
 			<%} else {%>
-				<div class="flex flex-col justify-center items-center w-64 h-32 m-4 rounded-lg <%=req.client.guilds.cache.get(g.id)?'bg-slate-700':'bg-slate-800 '%> shadow-md hover:shadow-lg hover:-translate-y-2 transition-all " onclick="location.href='/dashboard/guild/<%=g.id%>';">
+				<div class="flex flex-col justify-center items-center w-64 h-32 m-4 rounded-lg <%=req.client.guilds.cache.get(g.id)?'bg-slate-700':'bg-slate-800 '%> shadow-md hover:shadow-lg hover:-translate-y-2 transition-all cursor-pointer" onclick="location.href='/dashboard/guild/<%=g.id%>';">
 					<!--<img class="w-[70px] rounded-full mb-2" src="https://cdn.discordapp.com/icons/<%=g.id%>/<%=g.icon%>?size=4096"/>-->
 					<canvas id="myCanvas-<%=g.id%>" width="100px" height="100px" class="w-[70px] h-[70px] rounded-full mb-2 bg-slate-600"></canvas>
 					<p class=""><%=g.name%></p>
