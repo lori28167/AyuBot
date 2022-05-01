@@ -26,7 +26,7 @@
 		"info": {
 			"server": {
 				"error": {
-					"text": "[Error] I couldn't find the server in my database, run it again!"
+					"text": "[Error] I couldn't find the server in my database, run the command again!"
 				},
 				"field": [{"name": "Server Description", "value": "{description}"}, {
 					"name":"Date created", "value": "{date}"
