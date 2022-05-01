@@ -7,3 +7,8 @@ Um bot para Discord com dashboard.
 Un bot di Discord con la dashboard.
 
 <h4>- Il bot è verificato, ma è offline da tempo.</h4>
+
+# Ayu bot (en-us)
+One discord bot with the dashboard
+
+<h4>- The bot is verified, but it's been offline for a long time.</h4>
