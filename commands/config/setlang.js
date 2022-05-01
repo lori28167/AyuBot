@@ -9,7 +9,7 @@ module.exports = {
 			option.setName('lang')
 				.setDescription('Linguagem')
 				.setRequired(true)
-				.addChoices({name: 'English', value: 'en-us'},  {name:'Português Brasileiro', value: 'pt-br'}, {name: 'Italiano', value: 'it-it'})
+				.addChoices({name: 'English', value: 'en-us'},  {name:'Português Brasileiro', value: 'pt-br'}, {name: 'Italiano', value: 'it-it'}, {name: "Türkçe", value: "tr-tr"})
 										),
 
 	async execute(client, interaction) {
@@ -18,7 +18,7 @@ module.exports = {
 		const lang = client.lang(user.lang)
     user.lang = interaction.options.getString('lang');
 		user.save();
-		if(!["pt-br", "en-us", "it-it"].includes(interaction.options.getString('lang'))) return interaction.reply("??");
+		if(!["pt-br", "en-us", "it-it", "tr-tr"].includes(interaction.options.getString('lang'))) return interaction.reply("??");
 		interaction.reply(lang.setlang.success.text)
 	},
 
