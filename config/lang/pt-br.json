@@ -26,7 +26,7 @@
 		"info": {
 			"server": {
 				"error": {
-					"text": "[Erro] Não achei o servidor em minha database, execute denovo!"
+					"text": "[Erro] Não achei o servidor em minha database, execute o comando denovo!"
 				},
 				"field": [{"name": "Descrição do servidor", "value": "{description}"}, {
 					"name":"Data criada", "value": "{date}"

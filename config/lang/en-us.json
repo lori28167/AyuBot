@@ -26,7 +26,7 @@
 		"info": {
 			"server": {
 				"error": {
-					"text": "[Error] I couldn't find the server in my database, run it again!"
+					"text": "[Error] I couldn't find the server in my database, run the command again!"
 				},
 				"field": [{"name": "Server Description", "value": "{description}"}, {
 					"name":"Date created", "value": "{date}"
@@ -56,16 +56,17 @@
 		},
 	"ban": {
 			"success": {
-				"text": ":name_badge:  | {member} foi banido com sucesso!"
+				"text": "📛 | {member} has been successfully banned!"
 			},
 			"error": {
 			  "permissions": {
-					"text": "[ERRO] Você não pode usar esse comando apenas ADMINs e usuarios com permissão ``BAN_MEMBERS``!",
-					"text2": "[ERRO] Eu não posso executar esse comando pois não tenho permissão ``BAN_MEMBERS``!"
+					"text": "[ERROR] You cannot use this command only ADMINs and users with ``BAN_MEMBERS`` permission!",
+					"text2": "[ERROR] I can't execute this command because I don't have ``BAN_MEMBERS`` permission!"
 				},
-				"text": "Não posso te banir",
-				"text2": "[ERRO] Não consegui achar o usuário, verifique se está tudo correto.",
-				"text3": "[ERRO] Não consegui banir o usuário"
+				"text": "I can't ban you",
+				"text2": "[ERROR] I couldn't find the user, check if everything is correct.",
+				"text3": "[ERROR] Could not ban user"
 			}
 		}
+
 	}
