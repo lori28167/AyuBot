@@ -1,0 +1,83 @@
+{
+    "ping": {
+        "text": "Şuanki ping'im {ping}ms"
+    },
+    "help": {
+        "title": ":question: • Yardım",
+        "description": "Yardım mı lazım? [Discord Sunucuma](https://discord.gg/BzJn5Je) katıl!\nKomutlar:",
+        "fields": [
+            {
+                "name": "<:emoji_4:700116823542202378> • Moderasyon",
+                "value": "`ban,kick,timeout`"
+            },
+            {
+                "name": "<:emoji_5:700116865116012615> • Eğlence",
+                "value": "`bird, cat, dog`"
+            },
+            {
+                "name": "<:nikki:739995169671217203> • Ekonomi",
+                "value": "`coins, work`"
+            },
+            {
+                "name": "<:emoji_7:700117276434759800> • Ayarlar",
+                "value": "`dashboard, setlang`"
+            },
+            {
+                "name": ":info: • Bilgi",
+                "value": "`help, info <sunucu>, ping`"
+            }
+        ]
+    },
+    "info": {
+        "server": {
+            "error": {
+                "text": "[Hata] Sunucuyu veri tabanımda bulamadım, komudu bir daha çalıştır!"
+            },
+            "field": [
+                {
+                    "name": "Sunucu Açıklaması",
+                    "value": "{description}"
+                },
+                {
+                    "name": "Oluşturulma Tarihi",
+                    "value": "{date}"
+                }
+            ]
+        }
+    },
+    "work": {
+        "error": {
+            "text": "Kayıtlı değilsin gibi görünüyor, komudu bir daha çalıştır."
+        },
+        "success": {
+            "text": ":money_with_wings: | ${money} kazadın"
+        }
+    },
+    "bal": {
+        "error": {
+            "text": "[Hata] Kullanıcı kayıtlı değil"
+        },
+        "success": {
+            "text": ":moneybag: | {member}'ın ${money} parası var"
+        }
+    },
+    "setlang": {
+        "success": {
+            "text": "Dil değiştirildi!"
+        }
+    },
+    "ban": {
+        "success": {
+            "text": "📛 | {member} başarı bir şekilde banlandı!"
+        },
+        "error": {
+          "permissions": {
+                "text": "[Hata] Bu komudu kullanamazsın, sadece adminler ve ``BAN_MEMBERS`` izni olan kişiler kullanabilir!",
+                "text2": "[Hata] ``BAN_MEMBERS`` iznim olmadığı için bu kişiyi banlayamıyorum!"
+            },
+            "text": "Seni banlayamıyorum",
+            "text2": "[Hata] Bu kullanıcıyı bulamıyorum, herşeyin doğru olduğundan emin ol.",
+            "text3": "[Hata] Kullanıcı banlanamadı"
+        }
+    }
+}
