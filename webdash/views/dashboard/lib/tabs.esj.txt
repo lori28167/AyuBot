@@ -1,0 +1,71 @@
+<div class="flex w-full h-full">
+	<aside
+		id="sidebar"
+		class="block w-full lg:w-64 h-full transition-all"
+		aria-label="Sidebar"
+		aria-expanded="true"
+	>
+		<div class="overflow-y-hidden py-4 px-3 bg-gray-800 rounded h-full">
+			<a href=".." class="flex items-center pl-2.5 mb-5">
+				<span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><%=g.name%></span>
+			</a>
+			<ul
+				class="space-y-2"
+				id="myTab"
+		    data-tabs-toggle="#myTabContent"
+		    role="tablist"
+			>
+				<li role="presentation">
+					<button
+						class="flex items-center p-2 text-base font-normal text-white  rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 w-full transition-all"
+						id="geral-tab"
+						data-tabs-target="#geral"
+						type="button"
+						role="tab"
+						for="r1"
+						aria-controls="geral"
+						aria-selected="false"
+					>
+						<span class="ml-3">Geral</span>
+					</button>
+				</li>
+				<li role="presentation">
+					<button
+						class="flex items-center p-2 text-base font-normal text-white  rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 w-full transition-all"
+						id="settings-tab"
+						data-tabs-target="#settings"
+						type="button"
+						role="tab"
+						for="r2"
+						aria-controls="settings"
+						aria-selected="false"
+					>
+						<span class="ml-3">Configurações</span>
+					</button>
+				</li>
+			</ul>
+		</div>
+	</aside>
+
+	<div
+		id="myTabContent"
+		class="w-full h-full overflow-x-hidden overflow-y-scroll p-[8px] ml-2"
+	>
+		<button
+		data-collapse-toggle="sidebar"
+		data-collapse-toggle="myTab"
+		aria-label="Sidebar"
+		class="flex block lg:hidden w-[32px] h-[32px] "
+	>
+		<i data-feather="align-left"></i>
+	</button>
+		<br>
+		<div class="bg-slate-900 transition-all" id="geral" role="tabpanel" aria-labelledby="geral-tab">
+		  <%-include('./geral.ejs');%>
+		</div>
+		<div class="hidden bg-slate-900 transition-all" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+		   <%-include('./settings.ejs');%>
+		</div>
+	</div>
+</div>
+<script>feather.replace();</script>
